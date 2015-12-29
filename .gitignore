@@ -108,6 +108,7 @@ pip-selfcheck.json
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 /.idea
+/.vagrant
 
 # JIRA plugin
 atlassian-ide-plugin.xml
