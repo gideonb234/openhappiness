@@ -5,5 +5,4 @@ from django.utils import timezone
 # Create your views here.
 
 def index(request):
-    html = "<html><body>It is now %s.</body></html>"
-    return HttpResponse(html)
+    return render(request, 'datatwitter/static/index.html')
