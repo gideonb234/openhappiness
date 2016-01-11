@@ -1,4 +1,4 @@
-#import io here and a josn/csv parsing package?
+# File Controller to handle csv to json conversion and possibly parsing of json/csv files
 import json, io, csv
 
 class Dataset:

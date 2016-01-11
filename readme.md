@@ -13,3 +13,4 @@ Please create a virtualenv running Python 3.5 and Django 1.9
 * nose - install using  
 > pip install nose
 * http://textblob.readthedocs.org/en/dev/ - TextBlob for Sentiment Analysis 
+* 

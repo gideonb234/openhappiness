@@ -1,3 +1,5 @@
+# Handle all the interactions between the program and Twitter
+
 from TwitterAPI import TwitterAPI
 
 from . import twitterKeys
