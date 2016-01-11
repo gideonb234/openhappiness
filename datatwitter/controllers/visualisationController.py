@@ -1,0 +1,1 @@
+#Handle communication between JS library for Visualsation and the comparison controller
