@@ -20,12 +20,11 @@ class TwitterController:
     def search_query(self, query):
         return "blank"
 
-    def save_query(self,query):
+    def save_query(self,query,database_conn):
         return "h3h3"
 
     def check_query(self,query):
         return "yes"
-
 
 test = TwitterController
 test.search_query("fuck")
