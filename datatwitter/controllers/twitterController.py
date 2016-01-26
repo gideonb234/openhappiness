@@ -1,6 +1,6 @@
 # Handle all the interactions between the program and Twitter
 
-from TwitterAPI import TwitterAPI
+import tweepy
 
 from . import twitterKeys
 
@@ -10,20 +10,22 @@ consumer_secret = twitterKeys.consumer_secret
 access_token = twitterKeys.access_token
 access_secret = twitterKeys.access_secret
 
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.setAccessToken = access_token, access_secret
+
 class TwitterController:
     def __init__(self):
-        self.api = TwitterAPI(consumer_key, consumer_secret, access_token, access_secret)
+        self = tweepy.API(auth)
 
-    def search_tweets(self, query):
-        search_query = self.api.request('search/tweets', {'q': query})
-        for item in search_query:
-            print(item)
+    def search_query(self, query):
+        return "blank"
 
-    def search_user(self,user):
-        search_query = self.api.request('search/users', {'q' : user})
-        for item in search_query:
-            print(item)
+    def save_query(self,query):
+        return "h3h3"
+
+    def check_query(self,query):
+        return "yes"
 
 
 test = TwitterController
-test.search_tweets("happiness")
+test.search_query("fuck")
