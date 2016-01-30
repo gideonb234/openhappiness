@@ -5,5 +5,8 @@ from django.utils import timezone
 # Create your views here.
 
 def index(request):
+    # return "hello world"
     return render(request, 'datatwitter/static/index.html')
 
+def poc(request):
+    return render(request, 'datatwitter/static/poc.html')
