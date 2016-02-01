@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Proof of Concept Page</title>
+{#    {%  %}#}
 </head>
 <body>
     <h1>This is for proving certain things work</h1>
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="">
+        <form action="{% "twitter_poc.search_query("query") %}">
             <input type="text" name="query" value="Enter Query Here">
             <button type="submit">Show me the money</button>
         </form>

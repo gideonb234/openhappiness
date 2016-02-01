@@ -18,11 +18,23 @@ class TwitterController():
         print("initiated")
 
     def search_query(self, query):
-        results = self.api.search(query)
+        try:
+            # take user query and return latest 100 tweets
+            results = self.api.search(query)
+        except(tweepy.RateLimitError) as e:
+            print(e.message[0]['code'])
+        except(tweepy.TweepError) as e:
+            print(e.message[0]['code'])
 
         for result in results:
-            print(result.text + results.location + "\n")
+            print(result.text + "\n")
         # return results
 
-test = TwitterController()
-test.search_query("kish_txt")
+    def save_query_to_db(self, results, db_conn):
+        return "dicks"
+
+    def search_location(self, results):
+        return "nice meme"
+
+# test = TwitterController()
+# test.search_query("#SaladGate")
