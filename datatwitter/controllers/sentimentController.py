@@ -1,11 +1,12 @@
 # Perform sentiment analysis using an API (currently TextBlob, may change in the future)
 
-from textblob import base, TextBlob
-from textblob.sentiments import NaiveBayesAnalyzer
+from textblob import TextBlob
 
 class Sentiment:
-    def __init__(self):
-        self = "3"
+
+    def analyse_line(self,line):
+        blob = TextBlob(line)
+        print(blob.sentiment)
 
     def analyse_dataset(self,dataset):
         return "good"
@@ -15,3 +16,6 @@ class Sentiment:
 
     def save_analysis(self,result,database_conn):
         return "saved for your problems later"
+
+senti = Sentiment()
+senti.analyse_line("hello world you are amazing!")

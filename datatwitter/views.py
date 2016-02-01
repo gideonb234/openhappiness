@@ -11,4 +11,4 @@ def index(request):
 
 def poc(request):
     twitter_poc = twitterController.TwitterController()
-    return render(request, 'datatwitter/static/poc.html')
+    return render(request, 'datatwitter/static/poc.html',twitter_poc)
