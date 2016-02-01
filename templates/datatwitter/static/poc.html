@@ -10,9 +10,10 @@
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="{% "twitter_poc.search_query("query") %}">
-            <input type="text" name="query" value="Enter Query Here">
-            <button type="submit">Show me the money</button>
+        <form action="/datatwitter/poc/" method="get">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
         </form>
     </div>
     <br/>
