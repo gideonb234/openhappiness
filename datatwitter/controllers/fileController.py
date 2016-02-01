@@ -3,13 +3,18 @@ import json, io, csv, os
 
 class Dataset:
     def __init__(self, filename, data_type):
-        #filename must relate to file path
+        # filename must relate to file path
         self.filename = filename
         self.data_type = data_type
-        Dataset.analysed = False
+        self.analysed = False
 
-    def isAnalysed(self,file):
-        return Dataset.isAnalysed()
-
-    def returnFileFormat(self,file):
+    def return_file_format(self,file):
         fileFormat = os.path._splitext(file)[1]
+
+    def set_analysed(self):
+        if self.analysed:
+            self.analysed = False
+        else:
+            self.analysed = True
+
+
