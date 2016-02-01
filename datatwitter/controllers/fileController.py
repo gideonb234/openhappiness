@@ -8,8 +8,12 @@ class Dataset:
         self.data_type = data_type
         self.analysed = False
 
+    def get_file(self, file):
+        return "nah"
+
     def return_file_format(self,file):
-        fileFormat = os.path._splitext(file)[1]
+        file_format = os.path._splitext(file)[1]
+        return file_format
 
     def set_analysed(self):
         if self.analysed:
