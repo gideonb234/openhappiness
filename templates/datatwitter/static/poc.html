@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Proof of Concept Page</title>
-{#    {%  %}#}
+    <style>
+        body {
+            background: dimgrey;
+            color: ghostwhite;
+            width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>This is for proving certain things work</h1>
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="/datatwitter/poc/" method="get">
+        <form action="/datatwitter/poc/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+        <p>Detailed Search Query</p>
+        <form action="/datatwitter/poc/" method="post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Submit" />
@@ -19,10 +37,30 @@
     <br/>
     <div id="dataset">
         <h2>Load up a dataset for me </h2>
+        <p>Dataset Loader</p>
+        <form action="/datatwitter/poc/" method="post">
+{#            Dataset form goes here #}
+            <input type="submit" value="Submit"/>
+        </form>
     </div>
     <br/>
     <div id="sentiment">
-        <h2>Give me some data to analyse</h2>
+        <h2>Analyse some data for me</h2>
+        <p>Analyse words</p>
+        <form action="/datatwitter/poc/" method="get">
+{#            sentiment form goes here #}
+            <input type="submit" value="Submit" />
+        </form>
+        <p>Analyse twitter</p>
+        <form action="/datatwitter/poc/" method="get">
+{#            sentiment form goes here #}
+            <input type="submit" value="Submit" />
+        </form>
+        <p>Analyse data</p>
+        <form action="/datatwitter/poc/" method="get">
+{#            sentiment form goes here #}
+            <input type="submit" value="Submit" />
+        </form>
     </div>
 </body>
 </html>

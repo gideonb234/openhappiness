@@ -2,7 +2,7 @@
 
 from textblob import TextBlob
 
-# from .twitterController import TwitterController
+from . import twitterController
 
 class Sentiment:
 
@@ -11,24 +11,24 @@ class Sentiment:
 
     def analyse_line(self, line):
         blob = TextBlob(line)
-        self.print_sentiment(blob)
+        print(blob.sentiment)
 
     def analyse_dataset(self, dataset):
         return "good"
 
-    # def analyse_twitter(self, query):
-        # tweet = TwitterController()
-        # results = tweet.search_query(query)
-        # for result in results:
-        #     blob = TextBlob(result)
-        #     self.print_sentiment(blob)
+    def analyse_twitter(self, query):
+        tweet = twitterController.TwitterController()
+        results = tweet.search_query(query)
+        for result in results:
+            blob = TextBlob(result)
+            print(blob.sentiment)
+
+        return results
 
     def save_analysis(self, result, database_conn):
         return "saved for your problems later"
 
-    def print_sentiment(self, blob):
-        print(blob.sentiment)
 
 senti = Sentiment()
-senti.analyse_line("hello world you are amazing!")
-# senti.analyse_twitter("kish_soup")
+senti.analyse_line("hello world you are  amazing!")
+#senti.analyse_twitter("kish_soup")

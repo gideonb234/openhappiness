@@ -20,7 +20,7 @@ class TwitterController():
     def search_query(self, query):
         try:
             # take user query and return latest 100 tweets
-            results = self.api.search(query)
+            results = self.api.search(q=query)
         except(tweepy.RateLimitError) as e:
             print(e.message[0]['code'])
         except(tweepy.TweepError) as e:
@@ -28,7 +28,8 @@ class TwitterController():
 
         for result in results:
             print(result.text + "\n")
-        # return results
+
+        return results
 
     def save_query_to_db(self, results, db_conn):
         return "dicks"
