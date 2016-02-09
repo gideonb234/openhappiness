@@ -30,5 +30,5 @@ class Sentiment:
 
 
 senti = Sentiment()
-senti.analyse_line("hello world you are  amazing!")
+senti.analyse_line("hello world you are amazing!")
 #senti.analyse_twitter("kish_soup")
