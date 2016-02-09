@@ -2,7 +2,7 @@
 
 from textblob import TextBlob
 
-from . import twitterController
+from twitterController import TwitterController
 
 class Sentiment:
 
@@ -17,7 +17,7 @@ class Sentiment:
         return "good"
 
     def analyse_twitter(self, query):
-        tweet = twitterController.TwitterController()
+        tweet = TwitterController()
         results = tweet.search_query(query)
         for result in results:
             blob = TextBlob(result)
@@ -30,5 +30,5 @@ class Sentiment:
 
 
 senti = Sentiment()
-senti.analyse_line("hello world you are amazing!")
-#senti.analyse_twitter("kish_soup")
+# senti.analyse_line("hello world you are amazing!")
+senti.analyse_twitter("kish_soup")
