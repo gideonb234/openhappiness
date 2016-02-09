@@ -11,7 +11,7 @@ from .controllers.sentimentController import Sentiment
 
 def index(request):
     # return "hello world"
-    return render(request, 'datatwitter/static/index.html')
+    return render(request, './static/index.html')
 
 
 def poc(request):
