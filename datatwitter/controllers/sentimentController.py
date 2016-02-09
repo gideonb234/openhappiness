@@ -20,7 +20,8 @@ class Sentiment:
         tweet = TwitterController()
         results = tweet.search_query(query)
         for result in results:
-            blob = TextBlob(result)
+            str_result = str(result)
+            blob = TextBlob(str_result)
             print(blob.sentiment)
 
         return results
@@ -31,4 +32,4 @@ class Sentiment:
 
 senti = Sentiment()
 # senti.analyse_line("hello world you are amazing!")
-senti.analyse_twitter("kish_soup")
+senti.analyse_twitter("synergy_blitz")
