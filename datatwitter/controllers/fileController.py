@@ -2,17 +2,15 @@
 import json, io, csv, os
 
 class Dataset:
-    def __init__(self, filename, data_type):
+    def __init__(self, filename, filepath):
         # filename must relate to file path
         self.filename = filename
-        self.data_type = data_type
+        self.filepath = filepath
         self.analysed = False
-
-    def get_file(self, file):
-        return "nah"
 
     def return_file_format(self,file):
         file_format = os.path._splitext(file)[1]
+        print(file_format)
         return file_format
 
     def set_analysed(self):
@@ -21,4 +19,9 @@ class Dataset:
         else:
             self.analysed = True
 
-
+    def convert_csv_json(self, filepath):
+        file_format = self.return_file_format(filepath)
+        if file_format == "CSV":
+            print("convert to json")
+        else:
+            print("nah")
