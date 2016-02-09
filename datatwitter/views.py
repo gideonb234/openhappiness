@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from .controllers.formController import TwitterForm, SentimentForm
 from .controllers.twitterController import TwitterController
-from .controllers.sentimentController import Sentiment
+from .controllers.sentimentController import SentimentController
 # Create your views here.
 
 
@@ -27,7 +27,7 @@ def poc(request):
             print(request.POST)
             tweet = TwitterController()
             tweet.search_query(request.POST['search_query'])
-            return HttpResponseRedirect('/datatwitter/poc/')
+            return HttpResponseRedirect('/datatwitter/poc/search_query')
 
     # if a GET (or any other method) we'll create a blank form
     # if request.method == 'GET':
@@ -40,3 +40,15 @@ def poc(request):
     else:
         form = TwitterForm()
     return render(request, 'datatwitter/static/poc.html', {'form': form})
+
+def analyse_words(request):
+    if request.method == 'POST':
+        form = SentimentForm(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            sentiment = SentimentController()
+            sentiment.analyse_line(request.POST)
+            return HttpResponseRedirect('/datatwitter/poc/analyse_words')
+        else:
+            form = SentimentForm()
+    return render('/datatwitter/static/poc.html', {'form':form})

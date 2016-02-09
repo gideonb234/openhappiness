@@ -1,7 +1,7 @@
 # File Controller to handle csv to json conversion and possibly parsing of json/csv files
 import json, io, csv, os
 
-class Dataset:
+class FileController:
     def __init__(self, filename, filepath):
         # filename must relate to file path
         self.filename = filename

@@ -22,7 +22,7 @@
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/datatwitter/poc/search_query" method="post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Submit" />
@@ -47,12 +47,12 @@
     <div id="sentiment">
         <h2>Analyse some data for me</h2>
         <p>Analyse words</p>
-        <form action="/datatwitter/poc/" method="get">
-{#            sentiment form goes here #}
+        <form action="/datatwitter/poc/analyse_words" method="post">
+            {{ form }}
             <input type="submit" value="Submit" />
         </form>
         <p>Analyse twitter</p>
-        <form action="/datatwitter/poc/" method="get">
+        <form action="/datatwitter/poc/analyse_twitter" method="get">
 {#            sentiment form goes here #}
             <input type="submit" value="Submit" />
         </form>
