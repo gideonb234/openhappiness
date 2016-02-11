@@ -7,8 +7,8 @@ class TwitterForm(forms.Form):
 
 
 class SentimentForm(forms.Form):
-    sentiment_test = forms.CharField(label="sentiment", max_length=100)
+    sentiment_query = forms.CharField(label="sentiment", max_length=100)
 
 
-class uploadForm(forms.Form):
-    file = forms.FileField()
+class SentimentTwitterForm(forms.Form):
+    sentiment_query = forms.CharField(label="sentiment", max_length=100)

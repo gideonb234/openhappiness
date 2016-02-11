@@ -22,15 +22,17 @@
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="/datatwitter/poc/search_query" method="post">
+        <form action="/datatwitter/poc/" method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ twitter_form }}
+            <input type="hidden" name="form-type" value="twitter-form" />
             <input type="submit" value="Submit" />
         </form>
         <p>Detailed Search Query</p>
         <form action="/datatwitter/poc/" method="post">
             {% csrf_token %}
-            {{ form }}
+{#            {{ form }}#}
+            <input type="hidden" name="form-type" value="detailed-twitter-form" />
             <input type="submit" value="Submit" />
         </form>
     </div>
@@ -40,6 +42,7 @@
         <p>Dataset Loader</p>
         <form action="/datatwitter/poc/" method="post">
 {#            Dataset form goes here #}
+            <input type="hidden" name="form-type" value="dataset-form" />
             <input type="submit" value="Submit"/>
         </form>
     </div>
@@ -47,18 +50,23 @@
     <div id="sentiment">
         <h2>Analyse some data for me</h2>
         <p>Analyse words</p>
-        <form action="/datatwitter/poc/analyse_words" method="post">
-            {{ form }}
+        <form action="/datatwitter/poc/" method="post">
+            {% csrf_token %}
+            {{ sentiment_form }}
+            <input type="hidden" name="form-type" value="sentiment-form" />
             <input type="submit" value="Submit" />
         </form>
         <p>Analyse twitter</p>
-        <form action="/datatwitter/poc/analyse_twitter" method="get">
-{#            sentiment form goes here #}
+        <form action="/datatwitter/poc/" method="post">
+            {% csrf_token %}
+            {{ sentiment_twitter_form }}
             <input type="submit" value="Submit" />
+            <input type="hidden" name="form-type" value="sentiment-twitter-form" />
         </form>
         <p>Analyse data</p>
-        <form action="/datatwitter/poc/" method="get">
+        <form action="/datatwitter/poc/" method="post">
 {#            sentiment form goes here #}
+            <input type="hidden" name="form-type" value="sentiment-dataset-form" />
             <input type="submit" value="Submit" />
         </form>
     </div>

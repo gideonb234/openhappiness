@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.utils import timezone
 
-from .controllers.formController import TwitterForm, SentimentForm
+from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
 # Create your views here.
@@ -17,18 +17,32 @@ def index(request):
 def poc(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = TwitterForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            print(request.POST)
-            tweet = TwitterController()
-            tweet.search_query(request.POST['search_query'])
-            return HttpResponseRedirect('/datatwitter/poc/search_query')
-
+        print(request.POST)
+        if request.POST['form-type'] == 'twitter-form':
+            # create a form instance and populate it with data from the request:
+            form = TwitterForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                # process the data in form.cleaned_data as required
+                # ...
+                # redirect to a new URL:
+                tweet = TwitterController()
+                tweet.search_query(request.POST['search_query'])
+                return HttpResponseRedirect('/datatwitter/poc/')
+        elif request.POST['form-type'] == 'sentiment-form':
+            form = SentimentForm(request.POST)
+            if form.is_valid():
+                line = str(request.POST['sentiment_query'])
+                sentiment = SentimentController()
+                sentiment.analyse_line(line)
+                return HttpResponseRedirect('/datatwitter/poc/')
+        elif request.POST['form-type'] == 'sentiment-twitter-form':
+            form = SentimentTwitterForm(request.POST)
+            if form.is_valid():
+                line = str(request.POST['sentiment_query'])
+                sentiment = SentimentController()
+                sentiment.analyse_twitter(line)
+                return HttpResponseRedirect('/datatwitter/poc/')
     # if a GET (or any other method) we'll create a blank form
     # if request.method == 'GET':
     #     form = SentimentForm(request.GET)
@@ -38,17 +52,8 @@ def poc(request):
     #         analysis.request.GET['sentiment']
     #         return HttpResponseRedirect('/datatwitter/poc')
     else:
-        form = TwitterForm()
-    return render(request, 'datatwitter/static/poc.html', {'form': form})
-
-def analyse_words(request):
-    if request.method == 'POST':
-        form = SentimentForm(request.POST)
-        if form.is_valid():
-            print(request.POST)
-            sentiment = SentimentController()
-            sentiment.analyse_line(request.POST)
-            return HttpResponseRedirect('/datatwitter/poc/analyse_words')
-        else:
-            form = SentimentForm()
-    return render('/datatwitter/static/poc.html', {'form':form})
+        form = SentimentForm()
+    return render(request, 'datatwitter/static/poc.html', {
+        'twitter_form': TwitterForm,
+        'sentiment_form': SentimentForm,
+        'sentiment_twitter_form': SentimentTwitterForm})
