@@ -41,7 +41,8 @@
         <h2>Load up a dataset for me </h2>
         <p>Dataset Loader</p>
         <form action="/datatwitter/poc/" method="post">
-{#            Dataset form goes here #}
+            {% csrf_token %}
+            {{ dataset_form }}
             <input type="hidden" name="form-type" value="dataset-form" />
             <input type="submit" value="Submit"/>
         </form>

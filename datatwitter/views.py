@@ -29,6 +29,12 @@ def poc(request):
                 tweet = TwitterController()
                 tweet.search_query(request.POST['search_query'])
                 return HttpResponseRedirect('/datatwitter/poc/')
+        elif request.POST['form-type'] == 'dataset-form':
+            form = UploadFileForm(request.POST, request.FILES)
+            print(request.FILES['file'])
+            if form.is_valid():
+                print("hit")
+                return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
             if form.is_valid():
@@ -55,5 +61,6 @@ def poc(request):
         form = SentimentForm()
     return render(request, 'datatwitter/static/poc.html', {
         'twitter_form': TwitterForm,
+        'dataset_form': UploadFileForm,
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm})

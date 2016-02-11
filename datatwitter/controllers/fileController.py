@@ -25,3 +25,8 @@ class FileController:
             print("convert to json")
         else:
             print("nah")
+
+    def handle_file_upload(self, file):
+        with open('some/file/' + file, "wb+") as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)

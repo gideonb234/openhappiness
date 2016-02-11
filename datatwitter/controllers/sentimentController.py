@@ -29,7 +29,6 @@ class SentimentController:
             blob = TextBlob(str_result)
             avg_polarity = avg_polarity + blob.polarity
             avg_subjectivity = avg_subjectivity + blob.subjectivity
-            print(blob.sentiment)
 
         avg_polarity = avg_polarity / len(results)
         avg_subjectivity = avg_subjectivity / len(results)
