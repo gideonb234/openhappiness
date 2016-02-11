@@ -27,6 +27,6 @@ class FileController:
             print("nah")
 
     def handle_file_upload(self, file):
-        with open('some/file/' + file, "wb+") as destination:
+        with open('datatwitter/files/' + file, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
