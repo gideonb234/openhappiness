@@ -20,5 +20,5 @@ from datatwitter import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^datatwitter/', include('datatwitter.urls')),
+    url(r'', include('datatwitter.urls')),
 ]
