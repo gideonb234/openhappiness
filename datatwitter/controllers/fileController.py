@@ -8,6 +8,7 @@ class FileController:
         self.filepath = "empty"
         self.analysed = False
 
+    #to fix
     def return_file_format(self,file):
         file_format = os.path._splitext(file)[1]
         print(file_format)
@@ -29,9 +30,10 @@ class FileController:
         else:
             print("nah")
 
+    #to fix
     def handle_file_upload(self, file):
-        with open('datatwitter/files/' + file, "wb+") as destination:
+        with open('datatwitter/files/' + self.filename, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
-        self.filepath = 'datatwitter/files/' + file
+        self.filepath = 'datatwitter/files/' + self.filename
 
