@@ -6,6 +6,7 @@ from django.utils import timezone
 from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
+from .controllers.fileController import FileController
 # Create your views here.
 
 
@@ -31,9 +32,11 @@ def poc(request):
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'dataset-form':
             form = UploadFileForm(request.POST, request.FILES)
-            print(request.FILES['file'])
+            print("hit me")
             if form.is_valid():
-                print("hit")
+                print("hit you")
+                fileconn = FileController(request.POST['title'])
+                # fileconn.handle_file_upload(request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)

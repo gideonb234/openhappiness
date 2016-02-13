@@ -22,14 +22,14 @@
     <div id="twitter">
         <h2>Twitter</h2>
         <p>Search Query</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post">
             {% csrf_token %}
             {{ twitter_form }}
             <input type="hidden" name="form-type" value="twitter-form" />
             <input type="submit" value="Submit" />
         </form>
         <p>Detailed Search Query</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post">
             {% csrf_token %}
 {#            {{ form }}#}
             <input type="hidden" name="form-type" value="detailed-twitter-form" />
@@ -40,7 +40,7 @@
     <div id="dataset">
         <h2>Load up a dataset for me </h2>
         <p>Dataset Loader</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ dataset_form }}
             <input type="hidden" name="form-type" value="dataset-form" />
@@ -51,21 +51,21 @@
     <div id="sentiment">
         <h2>Analyse some data for me</h2>
         <p>Analyse words</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post">
             {% csrf_token %}
             {{ sentiment_form }}
             <input type="hidden" name="form-type" value="sentiment-form" />
             <input type="submit" value="Submit" />
         </form>
         <p>Analyse twitter</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post">
             {% csrf_token %}
             {{ sentiment_twitter_form }}
             <input type="submit" value="Submit" />
             <input type="hidden" name="form-type" value="sentiment-twitter-form" />
         </form>
         <p>Analyse data</p>
-        <form action="/datatwitter/poc/" method="post">
+        <form action="/poc/" method="post">
 {#            sentiment form goes here #}
             <input type="hidden" name="form-type" value="sentiment-dataset-form" />
             <input type="submit" value="Submit" />

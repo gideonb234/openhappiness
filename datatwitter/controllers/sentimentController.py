@@ -8,14 +8,11 @@ from .fileController import FileController
 
 class SentimentController:
 
-    def __init__(self):
-        data = "none"
-
     def analyse_line(self, line):
         blob = TextBlob(line)
         print(blob.sentiment)
 
-    def analyse_dataset(self, dataset):
+    def analyse_dataset(self, file):
         return "good"
 
     def analyse_twitter(self, query):

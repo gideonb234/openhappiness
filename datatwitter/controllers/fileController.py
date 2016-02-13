@@ -2,10 +2,10 @@
 import json, io, csv, os
 
 class FileController:
-    def __init__(self, filename, filepath):
+    def __init__(self, filename):
         # filename must relate to file path
         self.filename = filename
-        self.filepath = filepath
+        self.filepath = "empty"
         self.analysed = False
 
     def return_file_format(self,file):
@@ -19,6 +19,9 @@ class FileController:
         else:
             self.analysed = True
 
+    def set_filename(self, new_name):
+        self.filename = new_name
+
     def convert_csv_json(self, filepath):
         file_format = self.return_file_format(filepath)
         if file_format == "CSV":
@@ -30,3 +33,5 @@ class FileController:
         with open('datatwitter/files/' + file, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
+        self.filepath = 'datatwitter/files/' + file
+
