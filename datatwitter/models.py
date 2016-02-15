@@ -12,5 +12,8 @@ class Tweet (models.Model):
     tweet_location = "location" #can be nulled
 
 class Twitter (models.Model):
-    tweet = Tweet.tweet_id
+    tweet = models.ForeignKey(Tweet)
     datetime = datetime.now()
+
+class Files(models.Model):
+    file_path = models.FileField(upload_to="/datatwitter/files/%f")

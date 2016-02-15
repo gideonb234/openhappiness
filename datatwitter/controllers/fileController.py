@@ -1,9 +1,10 @@
 # File Controller to handle csv to json conversion and possibly parsing of json/csv files
 import json, io, csv, os
+# from .models import Files
 
 class FileController:
     def __init__(self):
-        return "hi"
+        return
 
     def convert_csv_json(self, filepath):
         file_format = self.return_file_format(filepath)
@@ -12,11 +13,13 @@ class FileController:
         else:
             print("nah")
 
-    def handle_file_upload(self, file):
-        with open('datatwitter/files/' + self.filename, "wb+") as destination:
+    def handle_file_upload(self, file, title):
+        f = File(title)
+        path = "/datatwiter/files/" + f.filename
+        with open(path, "wb+") as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
-        self.filepath = 'datatwitter/files/' + self.filename
+        f.filepath = path
 
 
 class File:
