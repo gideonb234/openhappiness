@@ -46,6 +46,14 @@
             <input type="hidden" name="form-type" value="dataset-form" />
             <input type="submit" value="Submit"/>
         </form>
+        <p>Remove dataset</p>
+        <form action="/poc/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ dataset_form }}
+            <input type="hidden" name="form-type" value="remove-dataset-form" />
+            <input type="submit" value="Submit"/>
+        </form>
+
     </div>
     <br/>
     <div id="sentiment">
