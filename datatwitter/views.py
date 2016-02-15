@@ -13,7 +13,7 @@ from .models import Files
 
 def index(request):
     # return "hello world"
-    return render(request, './static/index.html')
+    return render(request, 'datatwitter/index.html')
 
 
 def poc(request):
