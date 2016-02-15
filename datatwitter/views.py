@@ -36,7 +36,7 @@ def poc(request):
             if form.is_valid():
                 print("hit you")
                 fileconn = FileController(request.POST['title'])
-                # print(fileconn.return_file_format(request.FILES['file']))
+                print(fileconn.return_file_format(request.FILES['file']))
                 # fileconn.handle_file_upload(request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
