@@ -65,6 +65,7 @@ def poc(request):
     return render(request, 'datatwitter/static/poc.html', {
         'twitter_form': TwitterForm,
         'dataset_form': UploadFileForm,
+        'remove_dataset_form': RemoveFileForm,
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm})
 

@@ -24,3 +24,9 @@ fs = FileSystemStorage(location='/datatwitter/files/')
 class Files(models.Model):
     file_title = models.TextField(max_length=100, default="Untitled")
     file_path = models.FileField(upload_to="%y%m%d/%f", storage=fs)
+
+    def __iter__(self):
+        return [
+            self.file_path,
+            self.file_title
+        ]
