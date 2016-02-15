@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
-from django.views import generic
+from django.views.generic import DetailView
 from django.utils import timezone
 
 from .controllers.formController import *
@@ -9,6 +9,7 @@ from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
 # Create your views here.
 
+from .models import Files
 
 def index(request):
     # return "hello world"
@@ -32,12 +33,10 @@ def poc(request):
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'dataset-form':
             form = UploadFileForm(request.POST, request.FILES)
-            print("hit me")
             if form.is_valid():
-                print("hit you")
-                fileconn = FileController(request.POST['title'])
-                print(fileconn.return_file_format(request.FILES['file']))
-                # fileconn.handle_file_upload(request.FILES['file'])
+                instance = Files(file_path=request.FILES['file'])
+                instance.save()
+                print("file is written")
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
@@ -68,3 +67,6 @@ def poc(request):
         'dataset_form': UploadFileForm,
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm})
+
+class view_file(DetailView):
+    model = Files

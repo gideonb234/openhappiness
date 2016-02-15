@@ -2,7 +2,8 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Tweet, Twitter
+from .models import *
 
 admin.site.register(Tweet)
 admin.site.register(Twitter)
+admin.site.register(Files)

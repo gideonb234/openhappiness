@@ -125,3 +125,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/templates/static/'
+
+# Uploaded Files (Datasets etc)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, '/datatwitter/files')
+MEDIA_URL = "/datatwitter/files/"

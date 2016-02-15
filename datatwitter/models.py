@@ -16,4 +16,5 @@ class Twitter (models.Model):
     datetime = datetime.now()
 
 class Files(models.Model):
-    file_path = models.FileField(upload_to="/datatwitter/files/%f")
+    id
+    file_path = models.FileField(upload_to="%y%m%d/%f")
