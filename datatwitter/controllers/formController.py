@@ -24,5 +24,4 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 class RemoveFileForm(forms.Form):
-    file_picker = forms.CharField(widget=forms.Select(choices=Files.objects.all()))
-
+    file_picker = forms.CharField()

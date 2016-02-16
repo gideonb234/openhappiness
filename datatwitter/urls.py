@@ -6,5 +6,6 @@ app_name = "datatwitter"
 urlpatterns = [
     url(r'poc/', views.poc, name="poc"),
     url(r'index', views.index, name="index"),
-    url(r'$', views.index, name="default"),
+    # url(r'', views.index, name="default"),
 ]
+

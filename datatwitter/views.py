@@ -36,7 +36,6 @@ def poc(request):
             if form.is_valid():
                 instance = Files(file_path=request.FILES['file'], file_title=request.POST['title'])
                 instance.save()
-                print("file is written")
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
@@ -67,7 +66,5 @@ def poc(request):
         'dataset_form': UploadFileForm,
         'remove_dataset_form': RemoveFileForm,
         'sentiment_form': SentimentForm,
-        'sentiment_twitter_form': SentimentTwitterForm})
-
-class view_file(DetailView):
-    model = Files
+        'sentiment_twitter_form': SentimentTwitterForm
+    })
