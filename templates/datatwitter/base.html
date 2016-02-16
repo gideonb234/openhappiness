@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Happiness</title>
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+</head>
+<body>
+    <div class="header">
+
+    </div>
+    {% block content %}{% endblock %}
+    <div class="footer">
+        <a href="/datatwitter/poc">Go To POC</a>
+    </div>
+    <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+</body>
+</html>
