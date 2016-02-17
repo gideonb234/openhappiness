@@ -127,7 +127,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'templates/static/')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "templates/static/")
+    os.path.join(STATIC_ROOT, "css"),
+    os.path.join(STATIC_ROOT, "bootstrap"),
+    os.path.join(STATIC_ROOT, "images"),
+    os.path.join(STATIC_ROOT, "js"),
 ]
 
 # Uploaded Files (Datasets etc)
