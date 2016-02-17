@@ -8,7 +8,7 @@ class TwitterForm(forms.Form):
 
 class DetailedTwitterForm(forms.Form):
     search_query = forms.CharField(label="query", max_length=100)
-    #filters go here
+    # filters go here
 
 
 class SentimentForm(forms.Form):
@@ -23,5 +23,9 @@ class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file = forms.FileField()
 
-class RemoveFileForm(forms.Form):
-    file_picker = forms.CharField()
+
+class RemoveFileForm(forms.ModelForm):
+    class File:
+        model = Files
+        fields = ['file_title', 'file_path']
+    # file = forms.CharField(widget=forms.Select(choices=Files.objects.all()))

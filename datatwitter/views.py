@@ -34,8 +34,7 @@ def poc(request):
         elif request.POST['form-type'] == 'dataset-form':
             form = UploadFileForm(request.POST, request.FILES)
             if form.is_valid():
-                instance = Files(file_path=request.FILES['file'], file_title=request.POST['title'])
-                instance.save()
+                Files.upload(0,request.POST['title'],request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
