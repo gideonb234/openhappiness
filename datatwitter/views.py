@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DetailView
 from django.utils import timezone
 
@@ -21,13 +21,8 @@ def poc(request):
     if request.method == 'POST':
         print(request.POST)
         if request.POST['form-type'] == 'twitter-form':
-            # create a form instance and populate it with data from the request:
             form = TwitterForm(request.POST)
-            # check whether it's valid:
             if form.is_valid():
-                # process the data in form.cleaned_data as required
-                # ...
-                # redirect to a new URL:
                 tweet = TwitterController()
                 tweet.search_query(request.POST['search_query'])
                 return HttpResponseRedirect('/datatwitter/poc/')
@@ -36,6 +31,10 @@ def poc(request):
             if form.is_valid():
                 Files.upload(0,request.POST['title'],request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
+        elif request.POST['form-type'] == 'remove-dataset-form':
+            form = RemoveFileForm(request.post,request.FILES)
+            if form.is_valid():
+                Files.get_all()
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
             if form.is_valid():
@@ -50,14 +49,6 @@ def poc(request):
                 sentiment = SentimentController()
                 sentiment.analyse_twitter(line)
                 return HttpResponseRedirect('/datatwitter/poc/')
-    # if a GET (or any other method) we'll create a blank form
-    # if request.method == 'GET':
-    #     form = SentimentForm(request.GET)
-    #     if form.is_valid():
-    #         print(request.GET)
-    #         analysis = Sentiment()
-    #         analysis.request.GET['sentiment']
-    #         return HttpResponseRedirect('/datatwitter/poc')
     else:
         form = SentimentForm()
     return render(request, 'datatwitter/static/poc.html', {
@@ -67,3 +58,7 @@ def poc(request):
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm
     })
+
+
+def file(request, files_id):
+    return HttpResponse("This is file " % files_id)

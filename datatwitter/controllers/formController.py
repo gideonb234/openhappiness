@@ -24,8 +24,5 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 
-class RemoveFileForm(forms.ModelForm):
-    class File:
-        model = Files
-        fields = ['file_title', 'file_path']
-    # file = forms.CharField(widget=forms.Select(choices=Files.objects.all()))
+class RemoveFileForm(forms.Form):
+    file = forms.CharField(max_length=30)

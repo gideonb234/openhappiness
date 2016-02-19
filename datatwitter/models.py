@@ -23,8 +23,14 @@ fs = FileSystemStorage(location='/datatwitter/files/')
 
 class Files(models.Model):
     file_title = models.TextField(max_length=100, default="Untitled")
-    file_path = models.FileField(upload_to="%y%m%d/%f", storage=fs)
+    file_path = models.FileField(upload_to='/'.join(), storage=fs)
 
     def upload(self, file_title, file_path):
         instance = Files(file_path=file_path, file_title=file_title)
         instance.save()
+
+    def get_all(self):
+        objects = Files.objects.get_all()
+
+        for object in objects:
+            return "hehe"
