@@ -124,14 +124,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'templates/static/')
-STATICFILES_DIRS = [
-    os.path.join(STATIC_ROOT, "css"),
-    os.path.join(STATIC_ROOT, "bootstrap"),
-    os.path.join(STATIC_ROOT, "images"),
-    os.path.join(STATIC_ROOT, "js"),
-]
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join('templates', 'static-root')
+STATIC_DIR = os.path.join(BASE_DIR, 'templates', 'static')
+STATICFILES_DIRS = (STATIC_DIR, )
+    # os.path.join(BASE_DIR, "templates/static/"))
+#     os.path.join(STATIC_ROOT, "bootstrap"),
+#     os.path.join(STATIC_ROOT, "images"),
+#     os.path.join(STATIC_ROOT, "js"),
+#     os.path.join(STATIC_ROOT, "css"),
 
 # Uploaded Files (Datasets etc)
 
