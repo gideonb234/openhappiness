@@ -1,5 +1,6 @@
 body {
-  background: dimgrey;
+  background-image: url("../images/bg.png");
+  background-repeat: repeat;
   color: ghostwhite;
   width: 960px;
   margin-left: auto;
@@ -10,6 +11,11 @@ h1 {
   text-align: center; }
 
 .jumbotron {
-  background-color: black; }
+  background-color: dimgrey;
+  border-radius: 10px; }
+  .jumbotron p, .jumbotron h2, .jumbotron a {
+    padding-left: 10px; }
+  .jumbotron a.btn {
+    margin-left: 10px; }
 
 /*# sourceMappingURL=base.css.map */
