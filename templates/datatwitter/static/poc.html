@@ -1,83 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Proof of Concept Page</title>
-    <style>
-        body {
-            background: dimgrey;
-            color: ghostwhite;
-            width: 960px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-top: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h1>This is for proving certain things work</h1>
-    <div id="twitter">
-        <h2>Twitter</h2>
-        <p>Search Query</p>
-        <form action="/poc/" method="post">
-            {% csrf_token %}
-            {{ twitter_form }}
-            <input type="hidden" name="form-type" value="twitter-form" />
-            <input type="submit" value="Submit" />
-        </form>
-        <p>Detailed Search Query</p>
-        <form action="/poc/" method="post">
-            {% csrf_token %}
-{#            {{ form }}#}
-            <input type="hidden" name="form-type" value="detailed-twitter-form" />
-            <input type="submit" value="Submit" />
-        </form>
-    </div>
-    <br/>
-    <div id="dataset">
-        <h2>Load up a dataset for me </h2>
-        <p>Dataset Loader</p>
-        <form action="/poc/" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ dataset_form.as_p }}
-            <input type="hidden" name="form-type" value="dataset-form" />
-            <input type="submit" value="Submit"/>
-        </form>
-        <p>Remove dataset</p>
-        <form action="/poc/" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ remove_dataset_form }}
-            <input type="hidden" name="form-type" value="remove-dataset-form" />
-            <input type="submit" value="Submit"/>
-        </form>
+{% extends "datatwitter/base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>This is for proving certain things work</h1>
+        <div id="twitter">
+            <h2>Twitter</h2>
+            <p>Search Query</p>
+            <form action="/poc/" method="post">
+                {% csrf_token %}
+                {{ twitter_form }}
+                <input type="hidden" name="form-type" value="twitter-form" />
+                <input type="submit" value="Submit" />
+            </form>
+            <p>Detailed Search Query</p>
+            <form action="/poc/" method="post">
+                {% csrf_token %}
+    {#            {{ form }}#}
+                <input type="hidden" name="form-type" value="detailed-twitter-form" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+        <br/>
+        <div id="dataset">
+            <h2>Load up a dataset for me </h2>
+            <p>Dataset Loader</p>
+            <form action="/poc/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ dataset_form.as_p }}
+                <input type="hidden" name="form-type" value="dataset-form" />
+                <input type="submit" value="Submit"/>
+            </form>
+            <p>Remove dataset</p>
+            <form action="/poc/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ remove_dataset_form }}
+                <input type="hidden" name="form-type" value="remove-dataset-form" />
+                <input type="submit" value="Submit"/>
+            </form>
 
+        </div>
+        <br/>
+        <div id="sentiment">
+            <h2>Analyse some data for me</h2>
+            <p>Analyse words</p>
+            <form action="/poc/" method="post">
+                {% csrf_token %}
+                {{ sentiment_form }}
+                <input type="hidden" name="form-type" value="sentiment-form" />
+                <input type="submit" value="Submit" />
+            </form>
+            <p>Analyse twitter</p>
+            <form action="/poc/" method="post">
+                {% csrf_token %}
+                {{ sentiment_twitter_form }}
+                <input type="submit" value="Submit" />
+                <input type="hidden" name="form-type" value="sentiment-twitter-form" />
+            </form>
+            <p>Analyse data</p>
+            <form action="/poc/" method="post">
+    {#            sentiment form goes here #}
+                <input type="hidden" name="form-type" value="sentiment-dataset-form" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     </div>
-    <br/>
-    <div id="sentiment">
-        <h2>Analyse some data for me</h2>
-        <p>Analyse words</p>
-        <form action="/poc/" method="post">
-            {% csrf_token %}
-            {{ sentiment_form }}
-            <input type="hidden" name="form-type" value="sentiment-form" />
-            <input type="submit" value="Submit" />
-        </form>
-        <p>Analyse twitter</p>
-        <form action="/poc/" method="post">
-            {% csrf_token %}
-            {{ sentiment_twitter_form }}
-            <input type="submit" value="Submit" />
-            <input type="hidden" name="form-type" value="sentiment-twitter-form" />
-        </form>
-        <p>Analyse data</p>
-        <form action="/poc/" method="post">
-{#            sentiment form goes here #}
-            <input type="hidden" name="form-type" value="sentiment-dataset-form" />
-            <input type="submit" value="Submit" />
-        </form>
-    </div>
-</body>
-</html>
+{% endblock %}
