@@ -21,16 +21,18 @@ class Twitter (models.Model):
 fs = FileSystemStorage(location='/datatwitter/files/')
 
 
-class Files(models.Model):
+class Dataset(models.Model):
+    def content_name(instance, filename):
+        return '/'.join(['content', instance.file_title, filename])
+
     file_title = models.TextField(max_length=100, default="Untitled")
-    file_path = models.FileField(upload_to="%y%m%d/%f", storage=fs)
+    file_path = models.FileField(upload_to=content_name, storage=fs)
 
     def upload(self, file_title, file_path):
-        instance = Files(file_path=file_path, file_title=file_title)
+        instance = Dataset(file_path=file_path, file_title=file_title)
         instance.save()
 
-    def get_all(self):
-        objects = Files.objects.get_all()
-
-        for object in objects:
-            return "hehe"
+    def view_file(self, q_id):
+        if (q_id == Dataset._meta.get_field(self.id)):
+            for file in Dataset:
+                return file.id

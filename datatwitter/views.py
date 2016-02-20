@@ -9,7 +9,7 @@ from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
 # Create your views here.
 
-from .models import Files
+from .models import Dataset
 
 def index(request):
     # return "hello world"
@@ -29,12 +29,12 @@ def poc(request):
         elif request.POST['form-type'] == 'dataset-form':
             form = UploadFileForm(request.POST, request.FILES)
             if form.is_valid():
-                Files.upload(0,request.POST['title'],request.FILES['file'])
+                Dataset.upload(0, request.POST['title'], request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'remove-dataset-form':
             form = RemoveFileForm(request.post,request.FILES)
             if form.is_valid():
-                Files.get_all()
+                Dataset.get_all()
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
             if form.is_valid():
@@ -60,5 +60,5 @@ def poc(request):
     })
 
 
-def file(request, files_id):
-    return HttpResponse("This is file " % files_id)
+def file(request, dataset_id):
+    return HttpResponse("This is file " % dataset_id)

@@ -1,6 +1,6 @@
 # control the forms in pages
 from django import forms
-from ..models import Files
+from ..models import Dataset
 
 class TwitterForm(forms.Form):
     search_query = forms.CharField(label="query", max_length=100)
