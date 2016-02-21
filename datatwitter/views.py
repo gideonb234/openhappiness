@@ -61,4 +61,4 @@ def poc(request):
 
 
 def file(request, dataset_id):
-    return HttpResponse("This is file " % dataset_id)
+    return HttpResponse("This is file " % Dataset.view_file(dataset_id))

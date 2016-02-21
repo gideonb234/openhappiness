@@ -35,4 +35,4 @@ class Dataset(models.Model):
     def view_file(self, q_id):
         if (q_id == Dataset._meta.get_field(self.id)):
             for file in Dataset:
-                return file.id
+                return str(file) + " hit"
