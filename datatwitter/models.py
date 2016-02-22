@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
+from open_happy import settings
 
 # Create your models here.
 
@@ -23,9 +24,9 @@ fs = FileSystemStorage(location='/datatwitter/files/')
 
 class Dataset(models.Model):
     def content_name(instance, filename):
-        return '/'.join(['content', instance.file_title, filename])
-
+        return '/'.join(['files', instance.file_title])
     file_title = models.TextField(max_length=100, default="Untitled")
+    fs = FileSystemStorage()
     file_path = models.FileField(upload_to=content_name, storage=fs)
 
     def upload(self, file_title, file_path):
@@ -34,8 +35,8 @@ class Dataset(models.Model):
 
     def view_file(self, q_id):
         if (q_id == Dataset._meta.get_field(self.id)):
-            for file in Dataset:
-                return str(file) + " hit"
+            file = Dataset.objects.get(q_id)
+            file.file_path.storage
 
 class Result(models.Model):
     datetime = datetime.now()
