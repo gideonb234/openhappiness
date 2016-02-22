@@ -36,3 +36,9 @@ class Dataset(models.Model):
         if (q_id == Dataset._meta.get_field(self.id)):
             for file in Dataset:
                 return str(file) + " hit"
+
+class Result(models.Model):
+    datetime = datetime.now()
+    subjecivity = models.BigIntegerField()
+    polarity = models.BigIntegerField()
+    Dataset = models.ForeignKey(Dataset)
