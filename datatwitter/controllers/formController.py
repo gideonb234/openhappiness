@@ -25,4 +25,4 @@ class UploadFileForm(forms.Form):
 
 
 class RemoveFileForm(forms.Form):
-    file = forms.CharField(max_length=30)
+    file = forms.ModelChoiceField(queryset=Dataset.objects.all())
