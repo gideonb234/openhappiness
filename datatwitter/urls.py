@@ -9,7 +9,7 @@ app_name = "datatwitter"
 urlpatterns = [
     url(r'poc', views.poc, name="poc"),
     url(r'index', views.index, name="index"),
-    url(r'^dataset/(?P<dataset_id>[0-9]+)/$', views.file, name="files"),
+    url(r'^dataset/(?P<dataset_id>[0-9]+)', views.file, name="files"),
     url(r'', views.index, name="default"),
 ]
 

@@ -144,4 +144,4 @@ STATICFILES_DIRS = (STATIC_DIR, )
 # Media files (images, datasets etc)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'datatwitter', 'files')
-MEDIA_URL = "/files/"
+MEDIA_URL = "/media/"
