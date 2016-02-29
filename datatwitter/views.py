@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import DetailView
+from django.views.static import serve
 from django.utils import timezone
-
 from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
+import os
 # Create your views here.
 
 from .models import Dataset
@@ -32,9 +33,10 @@ def poc(request):
                 Dataset.upload(0, request.POST['title'], request.FILES['file'])
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'remove-dataset-form':
-            form = RemoveFileForm(request.post,request.FILES)
+            form = RemoveFileForm(request.POST, request.FILES)
             if form.is_valid():
-                Dataset.get_all()
+                print(request.POST['file'])
+                Dataset.remove(request.POST['file'])
         elif request.POST['form-type'] == 'sentiment-form':
             form = SentimentForm(request.POST)
             if form.is_valid():
@@ -61,4 +63,8 @@ def poc(request):
 
 
 def file(request, dataset_id):
-    return HttpResponse("This is file " % Dataset.view_file(dataset_id))
+    try:
+        dataset = get_object_or_404(Dataset, pk=dataset_id)
+    except Dataset.DoesNotExist:
+        raise Http404("Dataset does not exist")
+    return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset})
