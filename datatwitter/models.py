@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
-from open_happy import settings
 
 # Create your models here.
 
@@ -41,10 +40,6 @@ class Dataset(models.Model):
         if file_id == self.objects.get(file_id):
             file = self.objects.get(file_id)
             file.delete()
-
-    def view_file(self, q_id):
-        get_file = Dataset.objects.get(id=q_id)
-        return get_file
 
 
 class Result(models.Model):

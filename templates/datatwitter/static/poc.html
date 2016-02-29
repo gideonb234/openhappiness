@@ -57,7 +57,8 @@
             </form>
             <p>Analyse data</p>
             <form action="/poc/" method="post">
-    {#            sentiment form goes here #}
+                {% csrf_token %}
+                {{ sentiment_dataset_form }}
                 <input type="hidden" name="form-type" value="sentiment-dataset-form" />
                 <input type="submit" value="Submit" />
             </form>

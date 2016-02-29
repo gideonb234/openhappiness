@@ -13,7 +13,8 @@ class SentimentController:
         print(blob.sentiment)
 
     def analyse_dataset(self, file):
-        return "good"
+        blob = TextBlob(file)
+        print(blob.sentiment)
 
     def analyse_twitter(self, query):
         avg_polarity = 0
@@ -35,6 +36,9 @@ class SentimentController:
     def save_analysis(self, result, database_conn):
         return "saved for your problems later"
 
+    def analyse_dataset_num(self, file):
+        blob = TextBlob(file)
+        print(blob.sentiment)
 
 # senti = Sentiment()
 # senti.analyse_line("hello world you are amazing!")

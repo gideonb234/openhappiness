@@ -51,6 +51,12 @@ def poc(request):
                 sentiment = SentimentController()
                 sentiment.analyse_twitter(line)
                 return HttpResponseRedirect('/datatwitter/poc/')
+        elif request.POST['form-type'] == 'sentiment-dataset-form':
+            form = SentimentDatasetForm(request.POST, request.FILES)
+            print(request.POST, request.FILES)
+            if form.is_valid():
+                print("ping valid")
+                return HttpResponseRedirect('/datatwitter/poc')
     else:
         form = SentimentForm()
     return render(request, 'datatwitter/static/poc.html', {
@@ -58,11 +64,12 @@ def poc(request):
         'dataset_form': UploadFileForm,
         'remove_dataset_form': RemoveFileForm,
         'sentiment_form': SentimentForm,
-        'sentiment_twitter_form': SentimentTwitterForm
+        'sentiment_twitter_form': SentimentTwitterForm,
+        'sentiment_dataset_form' : SentimentDatasetForm,
     })
 
 
-def file(request, dataset_id):
+def dataset(request, dataset_id):
     try:
         dataset = get_object_or_404(Dataset, pk=dataset_id)
     except Dataset.DoesNotExist:
