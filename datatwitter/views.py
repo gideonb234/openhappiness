@@ -53,7 +53,8 @@ def poc(request):
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-dataset-form':
             form = SentimentDatasetForm(request.POST, request.FILES)
-            print(request.POST, request.FILES)
+            file = request.POST['file']
+            validate_file_extension(file)
             if form.is_valid():
                 print("ping valid")
                 return HttpResponseRedirect('/datatwitter/poc')
@@ -75,3 +76,12 @@ def dataset(request, dataset_id):
     except Dataset.DoesNotExist:
         raise Http404("Dataset does not exist")
     return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset})
+
+
+def validate_file_extension(file):
+    import os
+    ext = os.path.splitext(file)[1]
+    print(ext)
+    valid_extensions = ['.json']
+    if ext not in valid_extensions:
+        raise ValidationError(u'File not supported!')

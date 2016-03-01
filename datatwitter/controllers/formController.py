@@ -22,15 +22,7 @@ class SentimentTwitterForm(forms.Form):
 
 class SentimentDatasetForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-
-    def validate_file_extension(self):
-        import os
-        ext = os.path.splittext(self.file)[1]
-        valid_extensions = ['.csv', '.json']
-        if ext not in valid_extensions:
-            raise ValidationError(u'File not supported!')
-
-    file = forms.FileField(validators=[validate_file_extension], required=True)
+    file = forms.FileField(required=True)
 
 
 
