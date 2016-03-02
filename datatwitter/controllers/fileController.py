@@ -13,24 +13,12 @@ class FileController:
         else:
             print("nah")
 
-
-class File:
-    def __init__(self,filename):
-        self.filename = filename
-        self.filepath = "empty"
-        self.analysed = False
-
-    #to fix
     def return_file_format(self,file):
-        file_format = os.path._splitext(file)[1]
-        print(file_format)
+        file_format = os.path.splitext(file)[1]
         return file_format
 
-    def set_analysed(self):
-        if self.analysed:
-            self.analysed = False
-        else:
-            self.analysed = True
-
-    def set_filename(self, new_name):
-        self.filename = new_name
+    def open_file(self, f_id):
+        MEDIA_ROOT = '/datatwitter/files'
+        f_id = Dataset.objects.get(f_id)
+        f = open(os.path.join(f_id.file_path))
+        print(f)

@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import DetailView
 from django.views.static import serve
 from django.utils import timezone
+from django.core.files.storage import Storage
 from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
@@ -55,6 +56,7 @@ def poc(request):
             form = SentimentDatasetForm(request.POST, request.FILES)
             file = request.POST['file']
             validate_file_extension(file)
+            fc = open_file(12)
             if form.is_valid():
                 print("ping valid")
                 return HttpResponseRedirect('/datatwitter/poc')
@@ -66,7 +68,7 @@ def poc(request):
         'remove_dataset_form': RemoveFileForm,
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm,
-        'sentiment_dataset_form' : SentimentDatasetForm,
+        'sentiment_dataset_form': SentimentDatasetForm,
     })
 
 
@@ -85,3 +87,11 @@ def validate_file_extension(file):
     valid_extensions = ['.json']
     if ext not in valid_extensions:
         raise ValidationError(u'File not supported!')
+
+def open_file(file):
+    import json
+    MEDIA_ROOT = '/datatwitter/files'
+    f_id = get_object_or_404(Dataset, pk=file)
+    f = f_id.file_path.open()
+    print(f)
+    # print("opened?")
