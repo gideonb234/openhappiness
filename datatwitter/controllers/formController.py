@@ -1,7 +1,7 @@
 # control the forms in pages
 from django import forms
 from ..models import Dataset
-from django.core.validators import ValidationError
+
 
 class TwitterForm(forms.Form):
     search_query = forms.CharField(label="query", max_length=100)
@@ -21,9 +21,8 @@ class SentimentTwitterForm(forms.Form):
 
 
 class SentimentDatasetForm(forms.Form):
-    title = forms.CharField(max_length=50, required=True)
-    file = forms.FileField(required=True)
-
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
 
 
 class UploadFileForm(forms.Form):

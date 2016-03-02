@@ -56,9 +56,9 @@
                 <input type="hidden" name="form-type" value="sentiment-twitter-form" />
             </form>
             <p>Analyse data</p>
-            <form action="/poc/" method="post">
+            <form action="/poc/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ sentiment_dataset_form }}
+                {{ sentiment_dataset_form.as_p }}
                 <input type="hidden" name="form-type" value="sentiment-dataset-form" />
                 <input type="submit" value="Submit" />
             </form>

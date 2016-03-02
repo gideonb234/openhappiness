@@ -1,14 +1,11 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.views.generic import DetailView
-from django.views.static import serve
-from django.utils import timezone
-from django.core.files.storage import Storage
+from django import forms
 from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
-import os
+import json
 # Create your views here.
 
 from .models import Dataset
@@ -54,11 +51,16 @@ def poc(request):
                 return HttpResponseRedirect('/datatwitter/poc/')
         elif request.POST['form-type'] == 'sentiment-dataset-form':
             form = SentimentDatasetForm(request.POST, request.FILES)
-            file = request.POST['file']
-            validate_file_extension(file)
-            fc = open_file(12)
             if form.is_valid():
-                print("ping valid")
+                print("im valid")
+                file = request.FILES['file']
+                print(file)
+                fc = FileController()
+                saved_file = Dataset.upload(0, request.POST['title'], request.FILES['file'])
+                opened_file = fc.open_file(saved_file)
+                print(opened_file)
+                sentiment = SentimentController()
+                sentiment.analyse_dataset(opened_file)
                 return HttpResponseRedirect('/datatwitter/poc')
     else:
         form = SentimentForm()
@@ -75,23 +77,9 @@ def poc(request):
 def dataset(request, dataset_id):
     try:
         dataset = get_object_or_404(Dataset, pk=dataset_id)
+        file = dataset.file_path.open()
+        parsed_json = json.loads(str(file))
+        print(parsed_json)
     except Dataset.DoesNotExist:
         raise Http404("Dataset does not exist")
-    return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset})
-
-
-def validate_file_extension(file):
-    import os
-    ext = os.path.splitext(file)[1]
-    print(ext)
-    valid_extensions = ['.json']
-    if ext not in valid_extensions:
-        raise ValidationError(u'File not supported!')
-
-def open_file(file):
-    import json
-    MEDIA_ROOT = '/datatwitter/files'
-    f_id = get_object_or_404(Dataset, pk=file)
-    f = f_id.file_path.open()
-    print(f)
-    # print("opened?")
+    return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset, 'file': file})

@@ -35,6 +35,7 @@ class Dataset(models.Model):
     def upload(self, file_title, file_path):
         instance = Dataset(file_path=file_path, file_title=file_title)
         instance.save()
+        return instance.pk
 
     def remove(self, file_id):
         if file_id == self.objects.get(file_id):

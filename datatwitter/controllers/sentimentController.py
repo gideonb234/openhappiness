@@ -1,7 +1,7 @@
 # Perform sentiment analysis using an API (currently TextBlob, may change in the future)
 
 from textblob import TextBlob
-
+import json
 from .twitterController import TwitterController
 from .fileController import FileController
 
@@ -13,8 +13,9 @@ class SentimentController:
         print(blob.sentiment)
 
     def analyse_dataset(self, file):
-        blob = TextBlob(file)
-        print(blob.sentiment)
+        # this is implying the object is json by the way
+        for j_obj in file:
+            print(j_obj)
 
     def analyse_twitter(self, query):
         avg_polarity = 0
