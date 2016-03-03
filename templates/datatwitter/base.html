@@ -36,7 +36,7 @@
         </div>
         {% block content %}{% endblock %}
         <div class="footer">
-            <a href="/datatwitter/poc">Go To POC</a>
+            {% block footer %}{% endblock %}
         </div>
     </div>
     <script src="{% static "js/jquery-2.2.0.min.js" %}"></script>
