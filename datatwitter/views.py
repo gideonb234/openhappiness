@@ -83,3 +83,15 @@ def dataset(request, dataset_id):
     except Dataset.DoesNotExist:
         raise Http404("Dataset does not exist")
     return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset, 'file': file})
+
+def dataset_upload(request):
+    return render(request, 'datatwitter/dataset.html')
+
+def twitter_query(request):
+    return render(request, 'datatwitter/twitter-upload.html')
+
+def output_view(request):
+    return render(request, 'datatwitter/output.html')
+
+def comparison(request):
+    return render(request, 'datatwitter/comparison.html')
