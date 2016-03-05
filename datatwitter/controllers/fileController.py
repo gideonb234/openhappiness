@@ -21,29 +21,26 @@ class FileController:
         file_format = os.path.splitext(file)[1]
         return file_format
 
-    def open_file(self, file):
-        ext = self.validate_file_extension(file)
+    def open_file(self, file, saved_file):
+        # print(type(file))
+        ext = self.validate_file_extension(file.name)
         if ext == '.json':
-            self.open_json(file)
+            f_id = get_object_or_404(Dataset, pk=saved_file)
+            print(type(f_id.file_path))
+            with open(f_id.file_path.path) as f:
+                data = json.load(f)
+            for j_col in data:
+                print(j_col)
+            return data
         elif ext == '.csv':
-            self.open_csv(file)
+            f_id = get_object_or_404(Dataset, pk=saved_file)
+            f = f_id.file_path.open()
+            csvReader = csv.reader(f)
+            for row in csvReader:
+                print(row)
+            return f
         else:
             raise ValidationError(u'File not supported')
-
-    def open_json(self, file):
-        f_id = get_object_or_404(Dataset, pk=file)
-        f = f_id.file_path.open()
-        json_obj = json.loads(f)
-        for j_col in json_obj:
-            print(j_col)
-
-    def open_csv(self, file):
-        f_id = get_object_or_404(Dataset, pk=file)
-        f = f_id.file_path.open()
-        csvReader = csv.reader(f)
-        for row in csvReader:
-            print(row)
-        return f
 
     def validate_file_extension(self, file):
         ext = os.path.splitext(file)[1]

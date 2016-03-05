@@ -52,12 +52,12 @@ def poc(request):
         elif request.POST['form-type'] == 'sentiment-dataset-form':
             form = SentimentDatasetForm(request.POST, request.FILES)
             if form.is_valid():
-                print("im valid")
+                # print("im valid")
                 file = request.FILES['file']
-                print(file)
+                # print(type(file))
                 fc = FileController()
                 saved_file = Dataset.upload(0, request.POST['title'], request.FILES['file'])
-                opened_file = fc.open_file(saved_file)
+                opened_file = fc.open_file(file, saved_file)
                 print(opened_file)
                 sentiment = SentimentController()
                 sentiment.analyse_dataset(opened_file)

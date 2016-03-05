@@ -1,6 +1,7 @@
 # Perform sentiment analysis using an API (currently TextBlob, may change in the future)
 
 from textblob import TextBlob
+from textblob.sentiments import NaiveBayesAnalyzer
 import json
 from .twitterController import TwitterController
 from .fileController import FileController
@@ -15,7 +16,9 @@ class SentimentController:
     def analyse_dataset(self, file):
         # this is implying the object is json by the way
         for j_obj in file:
-            print(j_obj)
+            str_obj = str(j_obj)
+            blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
+            print(blob.sentiment)
 
     def analyse_twitter(self, query):
         avg_polarity = 0
