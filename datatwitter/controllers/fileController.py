@@ -34,11 +34,10 @@ class FileController:
             return data
         elif ext == '.csv':
             f_id = get_object_or_404(Dataset, pk=saved_file)
-            f = f_id.file_path.open()
-            csvReader = csv.reader(f)
-            for row in csvReader:
-                print(row)
-            return f
+            with open(f_id.file_path.path) as f:
+                csvReader = csv.reader(f)
+                print(csvReader)
+            return csvReader
         else:
             raise ValidationError(u'File not supported')
 

@@ -2,7 +2,7 @@
 
 from textblob import TextBlob
 from textblob.sentiments import NaiveBayesAnalyzer
-import json
+import json, os
 from .twitterController import TwitterController
 from .fileController import FileController
 
@@ -13,12 +13,28 @@ class SentimentController:
         blob = TextBlob(line)
         print(blob.sentiment)
 
-    def analyse_dataset(self, file):
+    def analyse_dataset(self, file, opened_obj):
+        # Check the file is csv/json
+        ext = os.path.splitext(file.name)[1]
+        print(ext)
+        count = 0
+        positivity = 0
+        negativity = 0
         # this is implying the object is json by the way
-        for j_obj in file:
-            str_obj = str(j_obj)
-            blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
-            print(blob.sentiment)
+        if ext == '.json':
+            for j_obj in opened_obj:
+                str_obj = str(j_obj)
+                blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
+                count += 1
+                # positivity += blob.p_pos
+                # negativity += blob.p_neg
+                print(blob.sentiment)
+            # positivity = (positivity / count)
+            # negativity = (negativity / count)
+            # print("Positive : " + positivity + " Negative : " + negativity)
+            # print("Positive or negative?")
+        elif ext == '.csv':
+            return '.csv'
 
     def analyse_twitter(self, query):
         avg_polarity = 0
@@ -34,7 +50,6 @@ class SentimentController:
 
         avg_polarity = avg_polarity / len(results)
         avg_subjectivity = avg_subjectivity / len(results)
-
         print("Polarity : " + str(avg_polarity) + " , Subjectivity: " + str(avg_subjectivity))
 
     def save_analysis(self, result, database_conn):

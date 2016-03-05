@@ -60,7 +60,7 @@ def poc(request):
                 opened_file = fc.open_file(file, saved_file)
                 print(opened_file)
                 sentiment = SentimentController()
-                sentiment.analyse_dataset(opened_file)
+                sentiment.analyse_dataset(file, opened_file)
                 return HttpResponseRedirect('/datatwitter/poc')
     else:
         form = SentimentForm()
