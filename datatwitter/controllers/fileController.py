@@ -22,7 +22,6 @@ class FileController:
         return file_format
 
     def open_file(self, file, saved_file):
-        # print(type(file))
         ext = self.validate_file_extension(file.name)
         if ext == '.json':
             f_id = get_object_or_404(Dataset, pk=saved_file)

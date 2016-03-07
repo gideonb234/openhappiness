@@ -16,11 +16,9 @@ class SentimentController:
     def analyse_dataset(self, file, opened_obj):
         # Check the file is csv/json
         ext = os.path.splitext(file.name)[1]
-        print(ext)
         count = 0
         positivity = 0
         negativity = 0
-        # this is implying the object is json by the way
         if ext == '.json':
             for j_obj in opened_obj:
                 str_obj = str(j_obj)
@@ -32,7 +30,7 @@ class SentimentController:
             # positivity = (positivity / count)
             # negativity = (negativity / count)
             # print("Positive : " + positivity + " Negative : " + negativity)
-            # print("Positive or negative?")
+            return blob.sentiment
         elif ext == '.csv':
             return '.csv'
 
@@ -44,7 +42,7 @@ class SentimentController:
         # take those tweets and give an average subjectivity/polarity
         for result in results:
             str_result = str(result)
-            blob = TextBlob(str_result)
+            blob = TextBlob(str_result, analyzer=NaiveBayesAnalyzer())
             avg_polarity = avg_polarity + blob.polarity
             avg_subjectivity = avg_subjectivity + blob.subjectivity
 
