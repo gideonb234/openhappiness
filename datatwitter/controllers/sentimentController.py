@@ -24,31 +24,36 @@ class SentimentController:
                 str_obj = str(j_obj)
                 blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
                 count += 1
-                # positivity += blob.p_pos
-                # negativity += blob.p_neg
-                print(blob.sentiment)
-            # positivity = (positivity / count)
-            # negativity = (negativity / count)
-            # print("Positive : " + positivity + " Negative : " + negativity)
-            return blob.sentiment
+                positivity += blob.sentiment.p_pos
+                negativity += blob.sentiment.p_neg
+            positivity = (positivity / count)
+            negativity = (negativity / count)
+            classification = self.calc_classification(positivity, negativity)
+            result = [positivity,negativity,classification]
+            print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
+            return result
         elif ext == '.csv':
             return '.csv'
 
     def analyse_twitter(self, query):
-        avg_polarity = 0
-        avg_subjectivity = 0
+        positivity = 0
+        negativity = 0
+        count = 0
         tweet = TwitterController()
         results = tweet.search_query(query)
         # take those tweets and give an average subjectivity/polarity
         for result in results:
             str_result = str(result)
             blob = TextBlob(str_result, analyzer=NaiveBayesAnalyzer())
-            avg_polarity = avg_polarity + blob.polarity
-            avg_subjectivity = avg_subjectivity + blob.subjectivity
-
-        avg_polarity = avg_polarity / len(results)
-        avg_subjectivity = avg_subjectivity / len(results)
-        print("Polarity : " + str(avg_polarity) + " , Subjectivity: " + str(avg_subjectivity))
+            count += 1
+            positivity += blob.sentiment.p_pos
+            negativity += blob.sentiment.p_neg
+        positivity = (positivity / count)
+        negativity = (negativity / count)
+        classification = self.calc_classification(positivity, negativity)
+        result = [positivity,negativity,classification]
+        print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
+        return result
 
     def save_analysis(self, result, database_conn):
         return "saved for your problems later"
@@ -56,6 +61,14 @@ class SentimentController:
     def analyse_dataset_num(self, file):
         blob = TextBlob(file)
         print(blob.sentiment)
+
+    def calc_classification(self,pos, neg):
+        if (pos > neg):
+            return "Positive"
+        elif (neg > pos):
+            return "Negative"
+        elif (neg == pos):
+            return "50/50"
 
 # senti = Sentiment()
 # senti.analyse_line("hello world you are amazing!")
