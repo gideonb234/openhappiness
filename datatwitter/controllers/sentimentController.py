@@ -48,6 +48,7 @@ class SentimentController:
             count += 1
             positivity += blob.sentiment.p_pos
             negativity += blob.sentiment.p_neg
+            print(blob.sentiment)
         positivity = (positivity / count)
         negativity = (negativity / count)
         classification = self.calc_classification(positivity, negativity)
