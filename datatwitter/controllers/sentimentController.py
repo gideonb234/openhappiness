@@ -19,17 +19,21 @@ class SentimentController:
         count = 0
         positivity = 0
         negativity = 0
+        individual_result = []
         if ext == '.json':
             for j_obj in opened_obj:
                 str_obj = str(j_obj)
                 blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
+                individual_result.append([count, blob.sentiment.p_pos, blob.sentiment.p_neg])
                 count += 1
                 positivity += blob.sentiment.p_pos
                 negativity += blob.sentiment.p_neg
+                print(individual_result)
+            #   make a list so for each pass, it adds to a separate list I can use later
             positivity = (positivity / count)
             negativity = (negativity / count)
             classification = self.calc_classification(positivity, negativity)
-            result = [positivity,negativity,classification]
+            result = [positivity, negativity, classification, individual_result]
             print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
             return result
         elif ext == '.csv':
@@ -39,29 +43,28 @@ class SentimentController:
         positivity = 0
         negativity = 0
         count = 0
+        individual_result = []
         tweet = TwitterController()
         results = tweet.search_query(query)
-        # take those tweets and give an average subjectivity/polarity
+        # take those tweets and give an average subjectivity/polarity (this literally takes forever with naivebayesanalyzer)
         for result in results:
             str_result = str(result)
             blob = TextBlob(str_result, analyzer=NaiveBayesAnalyzer())
+            individual_result.append([count, blob.sentiment.p_pos, blob.sentiment.p_neg])
             count += 1
             positivity += blob.sentiment.p_pos
             negativity += blob.sentiment.p_neg
+            #   make a list so for each pass, it adds to a separate list I can use later
             print(blob.sentiment)
         positivity = (positivity / count)
         negativity = (negativity / count)
         classification = self.calc_classification(positivity, negativity)
-        result = [positivity,negativity,classification]
+        result = [positivity,negativity,classification, individual_result]
         print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
         return result
 
     def save_analysis(self, result, database_conn):
         return "saved for your problems later"
-
-    def analyse_dataset_num(self, file):
-        blob = TextBlob(file)
-        print(blob.sentiment)
 
     def calc_classification(self,pos, neg):
         if (pos > neg):

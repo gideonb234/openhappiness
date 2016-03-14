@@ -32,3 +32,8 @@ class UploadFileForm(forms.Form):
 
 class RemoveFileForm(forms.Form):
     file = forms.ModelChoiceField(queryset=Dataset.objects.all())
+
+
+class ComparisonForm(forms.Form):
+    file = forms.ModelChoiceField(label="dataset", queryset=Dataset.objects.all())
+    query = forms.CharField(label="query", max_length=50)

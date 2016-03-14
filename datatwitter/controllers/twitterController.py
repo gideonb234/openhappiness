@@ -25,7 +25,6 @@ class TwitterController():
             print(e.message[0]['code'])
         except(tweepy.TweepError) as e:
             print(e.message[0]['code'])
-
         for result in results:
             print(result.text + "\n")
 

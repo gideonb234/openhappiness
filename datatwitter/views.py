@@ -62,6 +62,10 @@ def poc(request):
                 sentiment = SentimentController()
                 sentiment.analyse_dataset(file, opened_file)
                 return HttpResponseRedirect('/datatwitter/poc')
+        elif request.POST['form-type'] == 'comparison-form':
+            form = ComparisonForm(request.POST, request.FILES)
+            if form.is_valid():
+                print("hit")
     else:
         form = SentimentForm()
     return render(request, 'datatwitter/static/poc.html', {
@@ -71,6 +75,7 @@ def poc(request):
         'sentiment_form': SentimentForm,
         'sentiment_twitter_form': SentimentTwitterForm,
         'sentiment_dataset_form': SentimentDatasetForm,
+        'comparison_form': ComparisonForm,
     })
 
 
