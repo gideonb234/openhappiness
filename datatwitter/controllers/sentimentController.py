@@ -13,31 +13,27 @@ class SentimentController:
         blob = TextBlob(line)
         print(blob.sentiment)
 
-    def analyse_dataset(self, file, opened_obj):
+    def analyse_dataset(self, opened_obj):
         # Check the file is csv/json
-        ext = os.path.splitext(file.name)[1]
         count = 0
         positivity = 0
         negativity = 0
         individual_result = []
-        if ext == '.json':
-            for j_obj in opened_obj:
-                str_obj = str(j_obj)
-                blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
-                individual_result.append([count, blob.sentiment.p_pos, blob.sentiment.p_neg])
-                count += 1
-                positivity += blob.sentiment.p_pos
-                negativity += blob.sentiment.p_neg
-                print(individual_result)
-            #   make a list so for each pass, it adds to a separate list I can use later
-            positivity = (positivity / count)
-            negativity = (negativity / count)
-            classification = self.calc_classification(positivity, negativity)
-            result = [positivity, negativity, classification, individual_result]
-            print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
-            return result
-        elif ext == '.csv':
-            return '.csv'
+        for j_obj in opened_obj:
+            str_obj = str(j_obj)
+            blob = TextBlob(str_obj, analyzer=NaiveBayesAnalyzer())
+            individual_result.append([count, blob.sentiment.p_pos, blob.sentiment.p_neg])
+            count += 1
+            positivity += blob.sentiment.p_pos
+            negativity += blob.sentiment.p_neg
+            print(individual_result)
+        #   make a list so for each pass, it adds to a separate list I can use later
+        positivity = (positivity / count)
+        negativity = (negativity / count)
+        classification = self.calc_classification(positivity, negativity)
+        result = [positivity, negativity, classification, individual_result]
+        print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
+        return result
 
     def analyse_twitter(self, query):
         positivity = 0

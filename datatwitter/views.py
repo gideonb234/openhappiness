@@ -5,6 +5,7 @@ from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
+from .controllers.comparisonController import ComparisonController
 import json
 # Create your views here.
 
@@ -60,12 +61,21 @@ def poc(request):
                 opened_file = fc.open_file(file, saved_file)
                 print(opened_file)
                 sentiment = SentimentController()
-                sentiment.analyse_dataset(file, opened_file)
+                sentiment.analyse_dataset(opened_file)
                 return HttpResponseRedirect('/datatwitter/poc')
         elif request.POST['form-type'] == 'comparison-form':
             form = ComparisonForm(request.POST, request.FILES)
             if form.is_valid():
-                print("hit")
+                file = request.POST['file']
+                fc = FileController()
+                opened_file = fc.open_file_id(file)
+                # print(opened_file)
+                sentiment = SentimentController()
+                file_result = sentiment.analyse_dataset(opened_file)
+                twitter_result = sentiment.analyse_twitter(request.POST['query'])
+                compare = ComparisonController()
+                compare.compare_against_data(file_result, twitter_result)
+                return HttpResponseRedirect('/poc')
     else:
         form = SentimentForm()
     return render(request, 'datatwitter/static/poc.html', {

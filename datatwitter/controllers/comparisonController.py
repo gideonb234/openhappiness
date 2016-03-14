@@ -4,17 +4,17 @@ class ComparisonController:
     def __init__(self):
         return
 
-    def compare_against_data(self,dataset_result,query_result):
+    def compare_against_data(self,dataset_result,twitter_result):
         # Take the two results and compare the results to see which one is more positive/negative and generate average, range and median
         dataset_average = self.generate_average(dataset_result)
         dataset_range = self.generate_range(dataset_result)
         dataset_median = self.generate_median(dataset_result)
         dataset_sentiment = self.calc_sentiment(dataset_result)
         dataset_completed_comparison = [dataset_sentiment, dataset_average, dataset_range, dataset_median]
-        query_average = self.generate_average(query_result)
-        query_range = self.generate_range(query_result)
-        query_median = self.generate_median(query_result)
-        query_sentiment = self.calc_sentiment(query_result)
+        query_average = self.generate_average(twitter_result)
+        query_range = self.generate_range(twitter_result)
+        query_median = self.generate_median(twitter_result)
+        query_sentiment = self.calc_sentiment(twitter_result)
         query_completed_comparison = [query_sentiment, query_average, query_range, query_median]
         return ":)"
 
