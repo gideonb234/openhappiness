@@ -23,10 +23,23 @@ class ComparisonController:
         return completed_comparison
 
     def generate_average(self, result):
-        return "avg"
+        count = len(result)
+        total = 0
+        for r in result:
+            total += r
+        avg = total / count
+        return avg
 
     def generate_range(self, result):
-        return "range"
+        max = 0
+        min = result[0]
+        for r in result:
+            if r > max:
+                max = r
+            if r < min:
+                min = r
+        total_range = [max, min]
+        return total_range
 
     def generate_median(self, result):
         return "median"

@@ -14,7 +14,6 @@ class SentimentController:
         print(blob.sentiment)
 
     def analyse_dataset(self, opened_obj):
-        # Check the file is csv/json
         count = 0
         positivity = 0
         negativity = 0
