@@ -1,5 +1,7 @@
 # Facilitate comparison between datasets and Twitter data
 
+from ..models import Result
+
 class ComparisonController:
     def __init__(self):
         return
@@ -20,6 +22,7 @@ class ComparisonController:
 
     def save_comparison(self,completed_comparison):
         # This just adds the completed comparison to the database and returns an id for it
+
         return completed_comparison
 
     def generate_average(self, result):
@@ -45,4 +48,14 @@ class ComparisonController:
         return "median"
 
     def calc_sentiment(self, result):
-        return "senti"
+        neg = 0
+        pos = 0
+        for r in result:
+            neg += result.p_neg
+            pos += result.p_pos
+        if neg > pos:
+            return "Negative"
+        elif pos > neg:
+            return "Positive"
+        elif pos == neg:
+            return "Literally 50/50"
