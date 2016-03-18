@@ -49,7 +49,12 @@ class DatasetResult(models.Model):
     range = [models.IntegerField(), models.IntegerField()]
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
-    Dataset = models.ForeignKey(Dataset)
+    dataset = models.ForeignKey(Dataset)
+
+    def upload(self, dataset_result):
+        instance = DatasetResult(average=dataset_result[1], range=dataset_result[2], median=dataset_result[3], sentiment=dataset_result[0], dataset_id=dataset_result[4])
+        instance.save()
+        return instance.pk
 
 class QueryResult(models.Model):
     datetime = datetime.now()
@@ -57,3 +62,8 @@ class QueryResult(models.Model):
     range = [models.IntegerField(), models.IntegerField()]
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
+
+    def upload(self, query_result):
+        instance = query_result(average=query_result[1], range=query_result[2], median=query_result[3], sentiment=query_result[0])
+        instance.save()
+        return instance.pk

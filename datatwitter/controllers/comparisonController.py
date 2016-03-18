@@ -11,26 +11,25 @@ class ComparisonController:
         # Take the two results and compare the results to see which one is more positive/negative and generate average, range and median for each
         # Then compare the sentiment to each other to see which if both are pos/neg or if they differ and where
         # Lastly save each completed comparison to the database (result table)
-        dataset_average = self.generate_average(dataset_result[3])
-        dataset_range = self.generate_range(dataset_result[3])
-        dataset_median = self.generate_median(dataset_result[3])
         dataset_sentiment = self.calc_sentiment(dataset_result[3])
-        dataset_completed_comparison = [dataset_sentiment, dataset_average, dataset_range, dataset_median]
-        query_average = self.generate_average(twitter_result[3])
-        query_range = self.generate_range(twitter_result[3])
-        query_median = self.generate_median(twitter_result[3])
+        dataset_completed_comparison = [dataset_sentiment, self.generate_average(dataset_result[3]), self.generate_range(dataset_result[3]), self.generate_median(dataset_result[3]), dataset_result[4]]
         query_sentiment = self.calc_sentiment(twitter_result[3])
-        query_completed_comparison = [query_sentiment, query_average, query_range, query_median]
+        query_completed_comparison = [query_sentiment, self.generate_average(twitter_result[3]), self.generate_range(twitter_result[3]), self.generate_median(twitter_result[3])]
         compare_sentiment = self.compare_final_comparisons(dataset_sentiment, query_sentiment)
-        self.save_comparison(dataset_completed_comparison)
-        self.save_comparison(query_completed_comparison)
+        self.save_dataset_comparison(dataset_completed_comparison)
+        self.save_query_comparison(query_completed_comparison)
         results_to_return = [dataset_completed_comparison, query_completed_comparison, compare_sentiment]
         return results_to_return
 
-    def save_comparison(self,completed_comparison):
+    def save_dataset_comparison(self,dataset_comparison):
         # This just adds the completed comparison to the database and returns an id for it
+        id = DatasetResult.save(dataset_comparison)
+        return id
 
-        return completed_comparison
+    def save_query_comparison(self,query_comparison):
+        # This just adds the completed comparison to the database and returns an id for it
+        id = QueryResult.save(query_comparison)
+        return id
 
     def generate_average(self, result):
         count = len(result)
