@@ -23,12 +23,12 @@ class ComparisonController:
 
     def save_dataset_comparison(self,dataset_comparison):
         # This just adds the completed comparison to the database and returns an id for it
-        id = DatasetResult.save(dataset_comparison)
+        id = DatasetResult.upload(0, dataset_comparison)
         return id
 
     def save_query_comparison(self,query_comparison):
         # This just adds the completed comparison to the database and returns an id for it
-        id = QueryResult.save(query_comparison)
+        id = QueryResult.upload(0, query_comparison)
         return id
 
     def generate_average(self, result):
@@ -44,6 +44,7 @@ class ComparisonController:
         return avg
 
     def generate_range(self, result):
+        # create separate max/min values for pos and neg then put all that into a list
         max_pos = 0
         max_neg = 0
         min_pos = result[0][1]
@@ -57,15 +58,7 @@ class ComparisonController:
                 max_neg = r[2]
             elif min_neg > r[2]:
                 min_neg = r[2]
-        if min_neg < min_pos:
-            min = min_neg
-        else:
-            min = min_pos
-        if max_neg > max_pos:
-            max = max_neg
-        else:
-            max = max_pos
-        total_range = [max, min]
+        total_range = [max_pos, min_pos, max_neg, min_neg]
         return total_range
 
     def generate_median(self, result):

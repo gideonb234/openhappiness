@@ -46,24 +46,29 @@ class Dataset(models.Model):
 class DatasetResult(models.Model):
     datetime = datetime.now()
     average = models.BigIntegerField()
-    range = [models.IntegerField(), models.IntegerField()]
+    d_range = [models.IntegerField()]
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
     dataset = models.ForeignKey(Dataset)
 
     def upload(self, dataset_result):
-        instance = DatasetResult(average=dataset_result[1], range=dataset_result[2], median=dataset_result[3], sentiment=dataset_result[0], dataset_id=dataset_result[4])
+        # saves dataset result to the database
+        # Range is converted to [x] in order to be stored inside the list
+        instance = DatasetResult(average=dataset_result[1], d_range=dataset_result[2], median=dataset_result[3],
+                                 sentiment=dataset_result[0], dataset_id=dataset_result[4])
         instance.save()
         return instance.pk
 
 class QueryResult(models.Model):
     datetime = datetime.now()
     average = models.BigIntegerField()
-    range = [models.IntegerField(), models.IntegerField()]
+    q_range = [models.IntegerField()]
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
+    query = models.TextField(max_length=100)
 
     def upload(self, query_result):
-        instance = query_result(average=query_result[1], range=query_result[2], median=query_result[3], sentiment=query_result[0])
+        instance = query_result(average=query_result[1], q_range=query_result[2], median=query_result[3],
+                                sentiment=query_result[0], query=query_result[4])
         instance.save()
         return instance.pk

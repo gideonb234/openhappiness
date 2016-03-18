@@ -54,7 +54,7 @@ class SentimentController:
         positivity = (positivity / count)
         negativity = (negativity / count)
         classification = self.calc_classification(positivity, negativity)
-        result = [positivity,negativity,classification, individual_result]
+        result = [positivity,negativity,classification, individual_result, query]
         print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
         return result
 
