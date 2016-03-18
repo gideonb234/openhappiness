@@ -71,7 +71,7 @@ def poc(request):
                 opened_file = fc.open_file_id(file)
                 # print(opened_file)
                 sentiment = SentimentController()
-                file_result = sentiment.analyse_dataset(opened_file)
+                file_result = sentiment.analyse_dataset(opened_file, file)
                 twitter_result = sentiment.analyse_twitter(request.POST['query'])
                 compare = ComparisonController()
                 compare.compare_against_data(file_result, twitter_result)

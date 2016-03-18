@@ -1,6 +1,6 @@
 # Facilitate comparison between datasets and Twitter data
 
-from ..models import Result
+from ..models import DatasetResult, QueryResult
 from statistics import median
 
 class ComparisonController:
@@ -21,7 +21,7 @@ class ComparisonController:
         query_median = self.generate_median(twitter_result[3])
         query_sentiment = self.calc_sentiment(twitter_result[3])
         query_completed_comparison = [query_sentiment, query_average, query_range, query_median]
-        compare_sentiment = self.compare_final_comparison(dataset_sentiment, query_sentiment)
+        compare_sentiment = self.compare_final_comparisons(dataset_sentiment, query_sentiment)
         self.save_comparison(dataset_completed_comparison)
         self.save_comparison(query_completed_comparison)
         return ":)"
@@ -95,11 +95,13 @@ class ComparisonController:
         elif pos == neg:
             return "Literally 50/50"
 
-    def compare_final_comparisons(self, result_a, result_b):
-        dataset_sentiment = result_a[0]
-        query_sentiment = result_b[0]
+    def compare_final_comparisons(self, result_dataset, result_query):
+        dataset_sentiment = result_dataset[0]
+        query_sentiment = result_query[0]
+        final_string = ""
         if dataset_sentiment == query_sentiment:
-            return result_a[0]
+            final_string = "Final results show that both the dataset and twitter query are of " + result_dataset[0] + " sentiment."
         elif dataset_sentiment != query_sentiment:
-            print(result_a[0])
-            print(result_b[0])
+            final_string = "Final results show that the dataset is of " + result_dataset[0] + "sentiment and that the query is of " + \
+                            result_query[0] + "sentiment."
+        return final_string

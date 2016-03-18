@@ -13,7 +13,7 @@ class SentimentController:
         blob = TextBlob(line)
         print(blob.sentiment)
 
-    def analyse_dataset(self, opened_obj):
+    def analyse_dataset(self, opened_obj, file_id):
         count = 0
         positivity = 0
         negativity = 0
@@ -30,7 +30,7 @@ class SentimentController:
         positivity = (positivity / count)
         negativity = (negativity / count)
         classification = self.calc_classification(positivity, negativity)
-        result = [positivity, negativity, classification, individual_result]
+        result = [positivity, negativity, classification, individual_result, file_id]
         print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
         return result
 

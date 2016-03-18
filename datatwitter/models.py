@@ -43,8 +43,17 @@ class Dataset(models.Model):
             file.delete()
 
 
-class Result(models.Model):
+class DatasetResult(models.Model):
     datetime = datetime.now()
-    subjecivity = models.BigIntegerField()
-    polarity = models.BigIntegerField()
+    average = models.BigIntegerField()
+    range = [models.IntegerField(), models.IntegerField()]
+    median = models.BigIntegerField()
+    sentiment = models.TextField(max_length=20)
     Dataset = models.ForeignKey(Dataset)
+
+class QueryResult(models.Model):
+    datetime = datetime.now()
+    average = models.BigIntegerField()
+    range = [models.IntegerField(), models.IntegerField()]
+    median = models.BigIntegerField()
+    sentiment = models.TextField(max_length=20)
