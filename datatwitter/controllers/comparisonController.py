@@ -24,7 +24,8 @@ class ComparisonController:
         compare_sentiment = self.compare_final_comparisons(dataset_sentiment, query_sentiment)
         self.save_comparison(dataset_completed_comparison)
         self.save_comparison(query_completed_comparison)
-        return ":)"
+        results_to_return = [dataset_completed_comparison, query_completed_comparison, compare_sentiment]
+        return results_to_return
 
     def save_comparison(self,completed_comparison):
         # This just adds the completed comparison to the database and returns an id for it
