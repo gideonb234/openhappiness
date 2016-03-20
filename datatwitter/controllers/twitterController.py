@@ -20,7 +20,7 @@ class TwitterController():
     def search_query(self, query):
         try:
             # take user query and return latest 100 tweets
-            results = self.api.search(q=query, count=100)
+            results = self.api.search(q=query, count=10)
         except(tweepy.RateLimitError) as e:
             print(e.message[0]['code'])
         except(tweepy.TweepError) as e:

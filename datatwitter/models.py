@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
+from django.contrib.postgres.fields import ArrayField
+import json
 
 # Create your models here.
 
@@ -46,7 +48,9 @@ class Dataset(models.Model):
 class DatasetResult(models.Model):
     datetime = datetime.now()
     average = models.BigIntegerField()
-    d_range = [models.IntegerField()]
+    d_range = ArrayField(models.IntegerField(),size=4, default=[1,2,3,4],blank=True)
+
+    # d_range = ArrayField(models.CharField(max_length=100), blank = True, size=4, default=[0,0,0,0])
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
     dataset = models.ForeignKey(Dataset)
@@ -62,10 +66,11 @@ class DatasetResult(models.Model):
 class QueryResult(models.Model):
     datetime = datetime.now()
     average = models.BigIntegerField()
-    q_range = [models.IntegerField()]
+    d_range = ArrayField(models.IntegerField(),size=4, default=[1,2,3,4],blank=True)
+    # q_range = ArrayField(models.CharField(max_length=100), blank = True, size=4, default=[0,0,0,0])
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
-    query = models.TextField(max_length=100)
+    query = models.TextField(max_length=100, null=True)
 
     def upload(self, query_result):
         instance = query_result(average=query_result[1], q_range=query_result[2], median=query_result[3],
