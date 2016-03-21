@@ -1,8 +1,11 @@
+{# Dataset Upload Web Page #}
+{# Uses base.html as a base template and extends on it to create the rest of the page #}
 {% extends "datatwitter/base.html" %}
 {% block content %}
     <div class="dataset-upload">
         <div class="description">
-            Upload a CSV/JSON file to the database so that it can be analysed
+            <h1>Upload a JSON file</h1>
+            <p>The file must be correctly formatted JSON or otherwise an error will occur</p>
         </div>
         <div id="upload">
             <form action="/poc/" method="post" enctype="multipart/form-data">

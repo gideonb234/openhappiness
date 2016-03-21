@@ -7,7 +7,7 @@ from . import views
 app_name = "datatwitter"
 
 urlpatterns = [
-    url(r'poc', views.poc, name="poc"),
+    # url(r'poc', views.poc, name="poc"),
     url(r'index', views.index, name="index"),
     url(r'start', views.dataset_upload, name="dataset"),
     url(r'twitter', views.twitter_query, name="twitter"),

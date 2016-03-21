@@ -27,14 +27,16 @@
                     </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/index">Return to Home <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/index">Return to Home <span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div>
             </nav>
         <div class="header">
             {% block header %} {% endblock %}
         </div>
-        {% block content %}{% endblock %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
         <div class="footer">
             {% block footer %}{% endblock %}
         </div>
