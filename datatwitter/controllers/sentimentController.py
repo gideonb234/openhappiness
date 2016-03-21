@@ -25,7 +25,6 @@ class SentimentController:
             count += 1
             positivity += blob.sentiment.p_pos
             negativity += blob.sentiment.p_neg
-            print(individual_result)
         #   make a list so for each pass, it adds to a separate list I can use later
         positivity = (positivity / count)
         negativity = (negativity / count)
@@ -54,7 +53,8 @@ class SentimentController:
         positivity = (positivity / count)
         negativity = (negativity / count)
         classification = self.calc_classification(positivity, negativity)
-        result = [positivity,negativity,classification, individual_result, query]
+        result = [positivity,negativity,classification, individual_result,query]
+        # print(result)
         print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
         return result
 

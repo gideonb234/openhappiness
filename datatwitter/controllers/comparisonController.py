@@ -12,9 +12,13 @@ class ComparisonController:
         # Then compare the sentiment to each other to see which if both are pos/neg or if they differ and where
         # Lastly save each completed comparison to the database (result table)
         dataset_sentiment = self.calc_sentiment(dataset_result[3])
-        dataset_completed_comparison = [dataset_sentiment, self.generate_average(dataset_result[3]), self.generate_range(dataset_result[3]), self.generate_median(dataset_result[3]), dataset_result[4]]
+        dataset_completed_comparison = [dataset_sentiment, self.generate_average(dataset_result[3]),
+                                        self.generate_range(dataset_result[3]), self.generate_median(dataset_result[3]),
+                                        dataset_result[4]]
         query_sentiment = self.calc_sentiment(twitter_result[3])
-        query_completed_comparison = [query_sentiment, self.generate_average(twitter_result[3]), self.generate_range(twitter_result[3]), self.generate_median(twitter_result[3])]
+        query_completed_comparison = [query_sentiment, self.generate_average(twitter_result[3]),
+                                      self.generate_range(twitter_result[3]), self.generate_median(twitter_result[3]),
+                                      twitter_result[4]]
         compare_sentiment = self.compare_final_comparisons(dataset_sentiment, query_sentiment)
         self.save_dataset_comparison(dataset_completed_comparison)
         self.save_query_comparison(query_completed_comparison)
