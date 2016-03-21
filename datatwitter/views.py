@@ -100,7 +100,13 @@ def dataset(request, dataset_id):
     return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset, 'file': file})
 
 def dataset_upload(request):
-    return render(request, 'datatwitter/dataset.html')
+    if request.method == 'POST':
+        if request.POST['form-type'] == 'dataset-form':
+            form = UploadFileForm(request.POST, request.FILES)
+            if form.is_valid():
+                Dataset.upload(0, request.POST['title'], request.FILES['file'])
+                return HttpResponseRedirect('/twitter')
+    return render(request, 'datatwitter/dataset.html', {'dataset_form': UploadFileForm})
 
 def twitter_query(request):
     return render(request, 'datatwitter/twitter-upload.html')

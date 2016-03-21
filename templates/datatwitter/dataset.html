@@ -5,7 +5,13 @@
             Upload a CSV/JSON file to the database so that it can be analysed
         </div>
         <div id="upload">
-{#            upload form goes here #}
+            <form action="/poc/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ dataset_form.as_p }}
+                <input type="hidden" name="title" value="user_dataset">
+                <input type="hidden" name="form-type" value="dataset-form" />
+                <input class="btn btn-lg"type="submit" value="Submit"/>
+            </form>
         </div>
     </div>
 {% endblock %}
