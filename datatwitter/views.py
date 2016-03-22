@@ -99,17 +99,24 @@ def dataset(request, dataset_id):
         raise Http404("Dataset does not exist")
     return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset, 'file': file})
 
+
 def dataset_upload(request):
     if request.method == 'POST':
         if request.POST['form-type'] == 'dataset-form':
             form = UploadFileForm(request.POST, request.FILES)
             if form.is_valid():
                 file = Dataset.upload(0, request.POST['title'], request.FILES['file'])
-                return HttpResponseRedirect('/twitter', {"twitter_form" : TwitterForm, "file": file})
+                request.session['file'] = file
+                print(request.session['file'])
+                return HttpResponseRedirect('/twitter',{"twitter_form": TwitterForm, "file": file})
     return render(request, 'datatwitter/dataset.html', {'dataset_form': UploadFileForm})
 
+
 def twitter_query(request):
-    return render(request, 'datatwitter/twitter-upload.html')
+    file = request.session['file']
+    return render_to_response(request, 'datatwitter/twitter.html', {
+        'twitter_form': TwitterForm
+    })
 
 def output_view(request):
     return render(request, 'datatwitter/output.html')

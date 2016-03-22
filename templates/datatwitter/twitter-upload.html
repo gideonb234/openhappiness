@@ -7,7 +7,13 @@
         </div>
         <div class="next" id="twitter">
             <p>Next</p>
-            <p class="hidden">Dataset ID: {{ file }}</p>
+            <form action="/poc/" method="post">
+                {% csrf_token %}
+                {{  }}
+                <input type="hidden" name="form-type" value="twitter-form" />
+                <input type="submit" value="Submit" />
+            </form>
+            <p>Dataset ID: {{ file }}</p>
         </div>
     </div>
 {% endblock %}

@@ -9,16 +9,8 @@ import json
 # class Dataset (models.Model):
 
 
-class Tweet (models.Model):
-    tweet_id = "id" #foreign key
-    tweet_text = "tweet"
-    tweet_datetime = "datetime"
-    tweet_location = "location" #can be nulled
-
-
-class Twitter (models.Model):
-    tweet = models.ForeignKey(Tweet, default="00")
-    datetime = datetime.now()
+class Tweets (models.Model):
+    tweet_text = ArrayField(models.IntegerField(),size=100, default=[1,2,3,4], blank=True)
 
 fs = FileSystemStorage(location='/datatwitter/files/')
 
@@ -52,6 +44,7 @@ class DatasetResult(models.Model):
     median = models.BigIntegerField()
     sentiment = models.TextField(max_length=20)
     dataset = models.ForeignKey(Dataset)
+    dataset_sentiment = ArrayField(models.IntegerField(), size=100, default=[1,2,3,4], blank=True)
 
     def upload(self, dataset_result):
         # saves dataset result to the database
@@ -64,9 +57,11 @@ class QueryResult(models.Model):
     datetime = datetime.now()
     average = models.BigIntegerField()
     d_range = ArrayField(models.IntegerField(),size=5, default=[1,2,3,4],blank=True)
+    twitter_sentiment = ArrayField(models.IntegerField(),size=100, default=[1,2,3,4],blank=True)
     median = models.BigIntegerField()
     sentiment = models.CharField(max_length=20)
     twitter_query = models.CharField(max_length=100)
+    twitter_fk = models.ForeignKey(Tweets, null=True)
 
     def upload(self, query_result):
         instance = QueryResult(average=query_result[1], d_range=query_result[2], median=query_result[3],
