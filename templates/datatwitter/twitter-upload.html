@@ -9,7 +9,7 @@
             <p>Next</p>
             <form action="/poc/" method="post">
                 {% csrf_token %}
-                {{  }}
+                {{ twitter_form.as_p }}
                 <input type="hidden" name="form-type" value="twitter-form" />
                 <input type="submit" value="Submit" />
             </form>
