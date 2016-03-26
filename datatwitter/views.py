@@ -115,15 +115,16 @@ def dataset_upload(request):
 def twitter_query(request):
     file = request.session['file']
     if request.method == 'POST':
+        print('hit1')
         if request.POST['form-type'] == 'twitter-form':
+            print('hit2')
             form = TwitterForm(request.POST)
             if form.is_valid():
+                print('hit3')
                 tweet = TwitterController()
-                tweet.search_query(request.POST['search_query'])
-                return HttpResponseRedirect('/datatwitter/comparison')
-    return render(request, 'datatwitter/twitter-upload.html', {
-        'twitter_form': TwitterForm
-    })
+                request.session['tweet'] = tweet.search_query(request.POST['search_query'])
+                return HttpResponseRedirect('/comparison', {request.session['file']: file, request.session['tweet']: tweet_result})
+    return render(request, 'datatwitter/twitter-upload.html', {'twitter_form': TwitterForm, "file": file })
 
 def output_view(request):
     return render(request, 'datatwitter/output.html')
