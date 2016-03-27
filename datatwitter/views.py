@@ -122,12 +122,33 @@ def twitter_query(request):
             if form.is_valid():
                 print('hit3')
                 tweet = TwitterController()
-                request.session['tweet'] = tweet.search_query(request.POST['search_query'])
-                return HttpResponseRedirect('/comparison', {request.session['file']: file, request.session['tweet']: tweet_result})
+                tweet.search_query(request.POST['search_query'])
+                request.session['search_query'] = request.POST['search_query']
+                return HttpResponseRedirect('/comparison')
     return render(request, 'datatwitter/twitter-upload.html', {'twitter_form': TwitterForm, "file": file })
+
 
 def output_view(request):
     return render(request, 'datatwitter/output.html')
 
+
 def comparison(request):
-    return render(request, 'datatwitter/comparison.html')
+    if request.method == "POST":
+        if request.POST['form-type'] == 'comparison-form':
+            form = ComparisonForm(request.POST, request.FILES)
+            if form.is_valid():
+                file = request.session['file']
+                query = request.session['search_query']
+                fc = FileController()
+                opened_file = fc.open_file_id(file)
+                # print(opened_file)
+                sentiment = SentimentController()
+                file_result = sentiment.analyse_dataset(opened_file, file)
+                twitter_result = sentiment.analyse_twitter(query)
+                compare = ComparisonController()
+                compare.compare_against_data(file_result, twitter_result)
+            return HttpResponseRedirect('/visualisation')
+    return render(request, 'datatwitter/comparison.html', {'comparsion_form': ComparisonForm})
+
+def visualisation_select(request):
+    return render(request,'datatwitter/visualisation-select.html')

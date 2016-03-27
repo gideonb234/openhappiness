@@ -24,5 +24,5 @@ class RemoveFileForm(forms.Form):
     file = forms.ModelChoiceField(queryset=Dataset.objects.all())
 # Compare an uploaded file and a query
 class ComparisonForm(forms.Form):
-    file = forms.ModelChoiceField(label="dataset", queryset=Dataset.objects.all())
-    query = forms.CharField(label="query", max_length=50)
+    file = forms.HiddenInput()
+    query = forms.HiddenInput()

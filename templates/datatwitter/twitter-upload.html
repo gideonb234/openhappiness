@@ -7,7 +7,7 @@
         </div>
         <div class="next" id="twitter">
             <p>Next</p>
-            <form action="/poc/" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
                 {{ twitter_form.as_p }}
                 <input type="hidden" name="form-type" value="twitter-form" />
