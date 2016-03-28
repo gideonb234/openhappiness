@@ -145,10 +145,16 @@ def comparison(request):
                 sentiment = SentimentController()
                 file_result = sentiment.analyse_dataset(opened_file, file)
                 twitter_result = sentiment.analyse_twitter(query)
+                request.session['file_result'] = file_result
+                request.session['twitter_result'] = twitter_result
                 compare = ComparisonController()
-                compare.compare_against_data(file_result, twitter_result)
+                request.session['comparison_data'] = compare.compare_against_data(file_result, twitter_result)
             return HttpResponseRedirect('/visualisation')
     return render(request, 'datatwitter/comparison.html', {'comparsion_form': ComparisonForm})
 
+
 def visualisation_select(request):
+    file_result = request.session['file_result']
+    twitter_result = request.session['twitter_result']
+    comparison_data = request.session['comparison_data']
     return render(request,'datatwitter/visualisation-select.html')
