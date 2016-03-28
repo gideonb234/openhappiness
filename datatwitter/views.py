@@ -157,4 +157,6 @@ def visualisation_select(request):
     file_result = request.session['file_result']
     twitter_result = request.session['twitter_result']
     comparison_data = request.session['comparison_data']
-    return render(request,'datatwitter/visualisation-select.html')
+    return render(request,'datatwitter/visualisation-select.html',{"file_result": file_result,
+                                                                   "twitter_result": twitter_result,
+                                                                   "comparison_data": comparison_data})
