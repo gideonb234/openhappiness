@@ -129,7 +129,11 @@ def twitter_query(request):
 
 
 def output_view(request):
-    return render(request, 'datatwitter/output.html')
+    file_result = request.session['file_result']
+    twitter_result = request.session['twitter_result']
+    comparison_data = request.session['comparison_data']
+    return render(request,'datatwitter/output.html',{"file_result": file_result, "twitter_result": twitter_result,
+                                                     "comparison_data": comparison_data})
 
 
 def comparison(request):

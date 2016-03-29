@@ -2,11 +2,39 @@
 {% block scripts %}
     <!-- Data Vis -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        // this is where the data is loaded
+        var data = google.visualization.arrayToDataTable([
+          ['Age', 'Weight'],
+          [ 8,      12],
+          [ 4,      5.5],
+          [ 11,     14],
+          [ 4,      5],
+          [ 3,      3.5],
+          [ 6.5,    7]
+        ]);
+        // options for the chart
+        var options = {
+          title: 'Age vs. Weight comparison',
+          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+          legend: 'none'
+        };
+        // init chart and give it an id to latch onto
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+        // draw chart
+        chart.draw(data, options);
+      }
+    </script>
 {% endblock %}
 {% block content %}
     <div class="visualisation">
         <h2>Here is the viusalised form of the comparison results</h2>
-{#    Comparison #}
-{#        Possible results feature as well #}
+        <div id="chart_div">
+
+        </div>
     </div>
 {% endblock %}
