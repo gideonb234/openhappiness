@@ -6,6 +6,7 @@ from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
 from .controllers.fileController import FileController
 from .controllers.comparisonController import ComparisonController
+from .controllers.visualisationController import VisualisationController
 import json
 # Create your views here.
 
@@ -132,8 +133,14 @@ def output_view(request):
     file_result = request.session['file_result']
     twitter_result = request.session['twitter_result']
     comparison_data = request.session['comparison_data']
-    return render(request,'datatwitter/output.html',{"file_result": file_result, "twitter_result": twitter_result,
-                                                     "comparison_data": comparison_data})
+    vis_con = VisualisationController()
+    cleaned_file_result = vis_con.removeStringsFromData(file_result)
+    cleaned_twitter_result = vis_con.removeStringsFromData(twitter_result)
+    return render(request,'datatwitter/output.html',{"file_result": cleaned_file_result,
+                                                     "twitter_result": cleaned_twitter_result,
+                                                     "comparison_data_file": comparison_data[0],
+                                                     "comparison_data_twitter": comparison_data[1],
+                                                     "final_comparison": comparison_data[2]})
 
 
 def comparison(request):

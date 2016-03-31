@@ -7,26 +7,45 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         // this is where the data is loaded
-        var data = google.visualization.arrayToDataTable([
-          ['Age', 'Weight'],
-          [ 8,      12],
-          [ 4,      5.5],
-          [ 11,     14],
-          [ 4,      5],
-          [ 3,      3.5],
-          [ 6.5,    7]
-        ]);
+        var file_data = {{ file_result|safe }};
+        var file_data_indiv = file_data[2];
+        var twitter_data = {{ twitter_result|safe }};
+        var twitter_data_indiv = twitter_data[2];
+        var data = new google.visualization.DataTable();
+          data.addColumn('number', 'Count')
+          data.addColumn('number', 'Positive');
+          data.addColumn('number', 'Negative');
+        for (object of twitter_data_indiv) {
+            console.log(object[0] + " " + object[1]);
+         data.addRows([
+          [object[0],object[1], object[2]]
+         ]);
+        }
+{#        for (object of file_data_indiv) {#}
+{#          data.addRows([object[0],object[1]]);#}
+{#        }#}
         // options for the chart
         var options = {
-          title: 'Age vs. Weight comparison',
-          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-          legend: 'none'
+          width: 960,
+          height: 500,
+          chart: {
+            title: 'Twitter vs Dataset Comparsion',
+            subtitle: 'Based on data supplied by user/Twitter API'
+          },
+          hAxis: {title: 'Positive', minValue: 0, maxValue: 1},
+          vAxis: {title: 'Negative', minValue: 0, maxValue: 1},
+          legend: 'none',
+          colors: ['#087037', '#22AEFF']
         };
         // init chart and give it an id to latch onto
         var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
         // draw chart
         chart.draw(data, options);
+      }
+
+      function explodeInteriorArrays(array) {
+
+        return array;
       }
     </script>
 {% endblock %}
@@ -35,6 +54,21 @@
         <h2>Here is the viusalised form of the comparison results</h2>
         <div id="chart_div">
 
+        </div>
+        <div id="final_comparison">
+            <p>
+                Positive Data: </br>
+                Average: </br>
+                Median: </br>
+                Range: </br>
+            </p>
+            <p>
+                Negative Data: </br>
+                Average: </br>
+                Median: </br>
+                Range: </br>
+            </p>
+            <p>{{ final_comparison }}</p>
         </div>
     </div>
 {% endblock %}
