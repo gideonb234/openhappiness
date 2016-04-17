@@ -12,7 +12,7 @@ class SentimentController:
     def analyse_line(self, line):
         blob = TextBlob(line)
         print(blob.sentiment)
-
+    #incorrect use another thing
     def analyse_dataset(self, opened_obj, file_id):
         count = 0
         positivity = 0

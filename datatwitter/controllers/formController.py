@@ -4,7 +4,41 @@ from ..models import Dataset
 
 
 class TwitterForm(forms.Form):
-    search_query = forms.CharField(label="query", max_length=100)
+    # search_query = forms.CharField(label="query", max_length=100)
+    borough_choices = (("Barking and Dagenham", "Barking and Dagenham"),
+                       ("Barnet", "Barnet"),
+                       ("Bexley", "Bexley"),
+                       ("Brent", "Bromley"),
+                       ("Camden", "Camden"),
+                       ("Croydon", "Croydon"),
+                       ("Ealing", "Ealing"),
+                       ("Enfield", "Enfield"),
+                       ("Greenwich", "Greenwich"),
+                       ("Hackney", "Hackney"),
+                       ("Hammersmith", "Hammersmith"),
+                       ("Fulham", "Fulham"),
+                       ("Haringey", "Haringey"),
+                       ("Harrow", "Harrow"),
+                       ("Hillingdon", "Hillingdon"),
+                       ("Hounslow", "Hounslow"),
+                       ("Islington", "Islington"),
+                       ("Kensington", "Kensington"),
+                       ("Chelsea", "Chelsea"),
+                       ("Kingston", "Kingston"),
+                       ("Lambeth", "Lambeth"),
+                       ("Lewisham", "Lewisham"),
+                       ("Merton", "Merton"),
+                       ("Newham", "Newham"),
+                       ("Redbridge", "Redbridge"),
+                       ("Richmond", "Richmond"),
+                       ("Southwark", "Southwark"),
+                       ("Sutton", "Sutton"),
+                       ("Tower Hamlets", "Tower Hamlets"),
+                       ("Waltham Forest", "Waltham Forest"),
+                       ("Wandsworth", "Wandsworth"),
+                       ("Westminster", "Westminster"),
+                       )
+    search_query = forms.ChoiceField(label="query", choices=borough_choices)
 # analyse a line of code
 class SentimentForm(forms.Form):
     sentiment_query = forms.CharField(label="sentiment", max_length=100)

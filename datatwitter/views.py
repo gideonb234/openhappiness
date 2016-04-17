@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django import forms
+# import all the libraries required by the views page in order to run
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, Http404
 from .controllers.formController import *
 from .controllers.twitterController import TwitterController
 from .controllers.sentimentController import SentimentController
@@ -12,10 +12,13 @@ import json
 
 from .models import Dataset
 
+# Index page
+# Render the index page, it's as simple as that
 def index(request):
     # return "hello world"
     return render(request, 'datatwitter/index.html')
 
+# this entire page (poc) is just a test page for all of the functions I need for the site
 
 # def poc(request):
 #     # if this is a POST request we need to process the form data
@@ -90,6 +93,7 @@ def index(request):
 #     })
 
 
+# View a dataset given a dataset id
 def dataset(request, dataset_id):
     try:
         dataset = get_object_or_404(Dataset, pk=dataset_id)
@@ -100,7 +104,7 @@ def dataset(request, dataset_id):
         raise Http404("Dataset does not exist")
     return render(request, 'datatwitter/dataset-view.html', {'dataset': dataset, 'file': file})
 
-
+# Upload a dataset using this page (this is the only reason the python requires sudo)
 def dataset_upload(request):
     if request.method == 'POST':
         if request.POST['form-type'] == 'dataset-form':
@@ -112,7 +116,8 @@ def dataset_upload(request):
                 return HttpResponseRedirect('/twitter',{"twitter_form": TwitterForm, "file": file})
     return render(request, 'datatwitter/dataset.html', {'dataset_form': UploadFileForm})
 
-
+# Twitter query
+# Select a London borough from here (can also be a text box query depending on what is chosen in Forms Controller)
 def twitter_query(request):
     file = request.session['file']
     if request.method == 'POST':
@@ -128,7 +133,9 @@ def twitter_query(request):
                 return HttpResponseRedirect('/comparison')
     return render(request, 'datatwitter/twitter-upload.html', {'twitter_form': TwitterForm, "file": file })
 
-
+# Output Page
+# Outputs the compared data into a variable which can then be read by JS and used to generate a chart using
+# Google Charts API
 def output_view(request):
     file_result = request.session['file_result']
     twitter_result = request.session['twitter_result']
@@ -142,7 +149,9 @@ def output_view(request):
                                                      "comparison_data_twitter": comparison_data[1],
                                                      "final_comparison": comparison_data[2]})
 
-
+# The view for the comparison
+# Generates the comparison data and passes it to the output page where JS will then render a chart
+# This will also allow for the user to select a type of analysis in the future (probs not for disso)
 def comparison(request):
     if request.method == "POST":
         if request.POST['form-type'] == 'comparison-form':
@@ -163,7 +172,8 @@ def comparison(request):
             return HttpResponseRedirect('/visualisation')
     return render(request, 'datatwitter/comparison.html', {'comparsion_form': ComparisonForm})
 
-
+# Visualisation Select
+# Lets the user pick a visualisation select (actually allowing the user to select a visualisation is still to do)
 def visualisation_select(request):
     file_result = request.session['file_result']
     twitter_result = request.session['twitter_result']
