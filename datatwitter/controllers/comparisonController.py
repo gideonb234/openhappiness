@@ -115,9 +115,9 @@ class ComparisonController:
         neg = 0
         pos = 0
         for r in result:
-            if r[1] > 7.5:
+            if r[1] > 0.75:
                 pos += r[1]
-            elif r[1] < 7.5:
+            elif r[1] < 0.75:
                 neg += r[2]
         if neg > pos:
             return "Negative"
