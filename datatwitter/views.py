@@ -164,12 +164,12 @@ def comparison(request):
                 # print(opened_file)
                 sentiment = SentimentController()
                 file_result = sentiment.read_from_quantative_json(query, opened_file)
-                # twitter_result = sentiment.analyse_twitter(query)
-                # request.session['file_result'] = file_result
-                # request.session['twitter_result'] = twitter_result
-                # compare = ComparisonController()
-                # request.session['comparison_data'] = compare.compare_against_data(file_result, twitter_result)
-            # return HttpResponseRedirect('/visualisation')
+                twitter_result = sentiment.analyse_twitter(query)
+                request.session['file_result'] = file_result
+                request.session['twitter_result'] = twitter_result
+                compare = ComparisonController()
+                request.session['comparison_data'] = compare.compare_against_data(file_result, twitter_result, file)
+            return HttpResponseRedirect('/visualisation')
     return render(request, 'datatwitter/comparison.html', {'comparsion_form': ComparisonForm})
 
 # Visualisation Select
