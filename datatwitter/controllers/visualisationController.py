@@ -7,7 +7,7 @@ class VisualisationController:
     def getData(self,result):
         return "e"
 
-    def removeStringsFromData(self,result):
+    def remove_strings_twitter(self,result):
         # go through the array and remove strings from the array (use regex or clean??? idk)
         cleaned_indivs = []
         for r in result[3]:
@@ -15,5 +15,3 @@ class VisualisationController:
         cleaned_result = [result[0], result[1], cleaned_indivs]
         print(cleaned_result)
         return cleaned_result
-
-

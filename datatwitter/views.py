@@ -141,9 +141,9 @@ def output_view(request):
     twitter_result = request.session['twitter_result']
     comparison_data = request.session['comparison_data']
     vis_con = VisualisationController()
-    cleaned_file_result = vis_con.removeStringsFromData(file_result)
-    cleaned_twitter_result = vis_con.removeStringsFromData(twitter_result)
-    return render(request,'datatwitter/output.html',{"file_result": cleaned_file_result,
+    # cleaned_file_result = vis_con.remove_strings_dataset(file_result)
+    cleaned_twitter_result = vis_con.remove_strings_twitter(twitter_result)
+    return render(request,'datatwitter/output.html',{"file_result": file_result,
                                                      "twitter_result": cleaned_twitter_result,
                                                      "comparison_data_file": comparison_data[0],
                                                      "comparison_data_twitter": comparison_data[1],
