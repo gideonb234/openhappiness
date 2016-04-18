@@ -58,9 +58,39 @@ class SentimentController:
         print("Positive : " + str(positivity) + " Negative : " + str(negativity) + " Classified as: " + str(classification))
         return result
 
-    def save_analysis(self, result, database_conn):
-        return "saved for your problems later"
+    # rewrite of how json files will be read
+    # Get column from json data which matches query, take the average ratings from each one
+    # Return them as an array
+    def read_from_quantative_json(self, query, opened_file):
+        result = []
+        for j_obj in opened_file:
+            str_query = self.fix_query_names(query)
+            if j_obj['column3'] == str_query:
+                print(j_obj['column3'])
+                print('match')
+                result.append(j_obj['column4'])
+                result.append(j_obj['column11'])
+                result.append(j_obj['column18'])
+                result.append(j_obj['column25'])
+        print(result)
+        return result
 
+    def fix_query_names(self, query):
+        other_names = ["Barking", "Dagenham", "Hammersmith", "Fulham", "Kingston", "Richmond"]
+        if query == other_names[0] or query == other_names[1]:
+            return "Barking and Dagenham"
+        elif query == other_names[2] or query == other_names[3]:
+            return "Hammersmith and Fulham"
+        elif query == other_names[4]:
+            return "Kingston upon Thames"
+        elif query == other_names[5]:
+            return "Richmond upon Thames"
+        else:
+            return query
+
+
+
+    # calculate a classification of pos or neg
     def calc_classification(self,pos, neg):
         if (pos > neg):
             return "Positive"

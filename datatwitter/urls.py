@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'output', views.output_view, name="output"),
     url(r'visualisation', views.visualisation_select, name="visualisation"),
     url(r'^dataset/(?P<dataset_id>[0-9]+)', views.dataset, name="files"),
-    # url(r'', views.index, name="default"),
+    url(r'', views.index, name="default"),
 ]
 

@@ -49,12 +49,3 @@ class FileController:
         if ext not in valid_extensions:
             raise ValidationError(u'File not supported!')
         return ext
-
-    def read_data_from_file(self, file_id):
-        f_id = get_object_or_404(Dataset, pk=file_id)
-        with open(f_id.file_path.path) as f:
-            data = json.load(f)
-            for j_obj in data:
-                parsed_data = str(j_obj)
-                print(parsed_data)
-        # return parsed_data

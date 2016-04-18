@@ -5,12 +5,13 @@ from ..models import Dataset
 
 class TwitterForm(forms.Form):
     # search_query = forms.CharField(label="query", max_length=100)
-    borough_choices = (("Barking and Dagenham", "Barking and Dagenham"),
+    borough_choices = (("Barking", "Barking"),
                        ("Barnet", "Barnet"),
                        ("Bexley", "Bexley"),
                        ("Brent", "Bromley"),
                        ("Camden", "Camden"),
                        ("Croydon", "Croydon"),
+                       ("Dagenham", "Dagenham"),
                        ("Ealing", "Ealing"),
                        ("Enfield", "Enfield"),
                        ("Greenwich", "Greenwich"),
