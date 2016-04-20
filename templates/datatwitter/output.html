@@ -52,15 +52,25 @@
      google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawBoxPlot);
     function drawBoxPlot() {
-        var file_data = {{ file_result|safe }};#}
-        var file_data_indiv = file_data[2];
+        var file_data = {{ file_result|safe }};
+        console.log(file_data);
         var twitter_data = {{ twitter_result|safe }};
         var twitter_data_indiv = twitter_data[2];
+        console.log(twitter_data_indiv);
       var array = [
-        ['Dataset', 100, 90, 110, 85, 96, 104, 120],
-        ['Tweets', 120, 95, 130, 90, 113, 124, 140],
+        ['Dataset'],
+        ['Tweets Positive Data'],
       ];
-
+        for (var i =1; i<file_data.length;i++){
+            for (var j=0; j<file_data.length;j++){
+                array[0][j+1] = file_data[j][j];
+                console.log(array);
+            }
+        }
+        for (var i =1; i<twitter_data_indiv.length;i++) {
+            array[1][i+1] = twitter_data_indiv[i][1];
+        }
+        console.log(array);
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'x');
       data.addColumn('number', 'series0');
@@ -161,7 +171,6 @@
             }
           }
       };
-
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
       chart.draw(data, options);

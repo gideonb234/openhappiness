@@ -145,8 +145,8 @@ class ComparisonController:
     def prep_data(self, result):
         for r in result:
             r[0] = float(r[0])/10
-            r[2] = float(r[1])/10
-            r[1] = float(r[2])/10
+            r[1] = float(r[1])/10
+            r[2] = float(r[2])/10
         return result
 
 
