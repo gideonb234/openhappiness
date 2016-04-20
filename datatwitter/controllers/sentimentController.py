@@ -61,34 +61,34 @@ class SentimentController:
     # rewrite of how json files will be read
     # Get column from json data which matches query, take the average ratings from each one
     # Return them as an array
-    def read_from_quantative_json(self, query, opened_file):
+    def read_from_quantitive_json(self, query, opened_file):
         result = []
-        life_statisfaction = []
-        worthwhile = []
+        life_satisfaction = []
+        # worthwhile = []
         happiness = []
-        anxiety = []
+        # anxiety = []
         for j_obj in opened_file:
             str_query = self.fix_query_names(query)
             if j_obj['column3'] == str_query:
                 print(j_obj['column3'])
                 print('match')
                 # I'm not sure if there is a more efficient way to do this, but lets add average/range to a these things
-                life_statisfaction.append(j_obj['column4'])
-                life_statisfaction.append(j_obj['column6'])
-                life_statisfaction.append(j_obj['column7'])
-                result.append(life_statisfaction)
-                worthwhile.append(j_obj['column11'])
-                worthwhile.append(j_obj['column13'])
-                worthwhile.append(j_obj['column14'])
-                result.append(worthwhile)
+                life_satisfaction.append(j_obj['column4'])
+                life_satisfaction.append(j_obj['column6'])
+                life_satisfaction.append(j_obj['column7'])
+                result.append(life_satisfaction)
+                # worthwhile.append(j_obj['column11'])
+                # worthwhile.append(j_obj['column13'])
+                # worthwhile.append(j_obj['column14'])
+                # result.append(worthwhile)
                 happiness.append(j_obj['column18'])
                 happiness.append(j_obj['column20'])
                 happiness.append(j_obj['column21'])
                 result.append(happiness)
-                anxiety.append(j_obj['column25'])
-                anxiety.append(j_obj['column27'])
-                anxiety.append(j_obj['column28'])
-                result.append(anxiety)
+                # anxiety.append(j_obj['column25'])
+                # anxiety.append(j_obj['column27'])
+                # anxiety.append(j_obj['column28'])
+                # result.append(anxiety)
         print(result)
         return result
 

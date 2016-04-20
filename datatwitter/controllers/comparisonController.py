@@ -90,6 +90,7 @@ class ComparisonController:
 
 
     def dataset_generate_range(self, result):
+        print(result)
         min_num = 0
         max_num = result[0][1]
         for r in result:
