@@ -1,177 +1,7 @@
 {% extends "datatwitter/base.html" %}
 {% block scripts %}
     <!-- Data Vis -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-{#    <script type="text/javascript">#}
-{#      google.charts.load('current', {'packages':['corechart']});#}
-{#      google.charts.setOnLoadCallback(drawChart);#}
-{#      function drawChart() {#}
-{#        // this is where the data is loaded#}
-{#        var file_data = {{ file_result|safe }};#}
-{#        var file_data_indiv = file_data[2];#}
-{#        var twitter_data = {{ twitter_result|safe }};#}
-{#        var twitter_data_indiv = twitter_data[2];#}
-{#        var data = new google.visualization.DataTable();#}
-{#          data.addColumn('number', 'Count')#}
-{#          data.addColumn('number', 'Positive');#}
-{#          data.addColumn('number', 'Negative');#}
-{#        for (object of twitter_data_indiv) {#}
-{#            console.log(object[0] + " " + object[1]);#}
-{#         data.addRows([#}
-{#          [object[0],object[1], object[2]]#}
-{#         ]);#}
-{#        }#}
-{#        for (object of file_data_indiv) {#}
-{#          data.addRows([object[0],object[1]]);#}
-{#        }#}
-{#        // options for the chart#}
-{#        var options = {#}
-{#          width: 960,#}
-{#          height: 500,#}
-{#          chart: {#}
-{#            title: 'Twitter vs Dataset Comparsion',#}
-{#            subtitle: 'Based on data supplied by user/Twitter API'#}
-{#          },#}
-{#          hAxis: {title: 'Positive', minValue: 0, maxValue: 1},#}
-{#          vAxis: {title: 'Negative', minValue: 0, maxValue: 1},#}
-{#          legend: 'none',#}
-{#          colors: ['#087037', '#22AEFF']#}
-{#        };#}
-{#        // init chart and give it an id to latch onto#}
-{#        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));#}
-{#        // draw chart#}
-{#        chart.draw(data, options);#}
-{#      }#}
-{##}
-{#      function explodeInteriorArrays(array) {#}
-{##}
-{#        return array;#}
-{#      }#}
-{#    </script>#}
-    <script type='text/javascript'>
-     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawBoxPlot);
-    function drawBoxPlot() {
-        var file_data = {{ file_result|safe }};
-        var file_data_flatten = [].concat.apply([], file_data);
-        var twitter_data = {{ twitter_result|safe }};
-        var twitter_data_indiv = twitter_data[2];
-
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'x');
-        var array = [
-        ['Dataset'],
-        ['Tweets Positive Data'],
-      ];
-        for (var i =0; i<file_data_flatten.length;i++){
-            array[0][i+1] = file_data_flatten[i];
-            data.addColumn('number', '0');
-        }
-        for (var i =0; i<twitter_data_indiv.length;i++) {
-            array[1][i+1] = twitter_data_indiv[i][1];
-            data.addColumn('number', '0');
-        }
-
-
-
-
-      data.addColumn({id:'max', type:'number', role:'interval'});
-      data.addColumn({id:'min', type:'number', role:'interval'});
-      data.addColumn({id:'firstQuartile', type:'number', role:'interval'});
-      data.addColumn({id:'median', type:'number', role:'interval'});
-      data.addColumn({id:'thirdQuartile', type:'number', role:'interval'});
-        console.log(array);
-        array = getBoxPlotValues(array);
-      data.addRows(array);
-
-
-      /**
-       * Takes an array of input data and returns an
-       * array of the input data with the box plot
-       * interval data appended to each row.
-       */
-      function getBoxPlotValues(array) {
-
-        for (var i = 0; i < array.length; i++) {
-
-          var arr = array[i].slice(1).sort(function (a, b) {
-            return a - b;
-          });
-
-          var max = arr[arr.length - 1];
-          var min = arr[0];
-          var median = getMedian(arr);
-
-          // First Quartile is the median from lowest to overall median.
-          var firstQuartile = getMedian(arr.slice(0, 4));
-
-          // Third Quartile is the median from the overall median to the highest.
-          var thirdQuartile = getMedian(arr.slice(3));
-
-          array[i][8] = max;
-          array[i][9] = min;
-          array[i][10] = firstQuartile;
-          array[i][11] = median;
-          array[i][12] = thirdQuartile;
-        }
-        return array;
-      }
-
-      /*
-       * Takes an array and returns
-       * the median value.
-       */
-      function getMedian(array) {
-        var length = array.length;
-
-        /* If the array is an even length the
-         * median is the average of the two
-         * middle-most values. Otherwise the
-         * median is the middle-most value.
-         */
-        if (length % 2 === 0) {
-          var midUpper = length / 2;
-          var midLower = midUpper - 1;
-
-          return (array[midUpper] + array[midLower]) / 2;
-        } else {
-          return array[Math.floor(length / 2)];
-        }
-      }
-
-      var options = {
-          title:'Dataset and Twitter query comparison results',
-          height: 500,
-          legend: {position: 'none'},
-          hAxis: {
-            gridlines: {color: '#fff'}
-          },
-          lineWidth: 0,
-          series: [{'color': '#D3362D'}],
-          intervals: {
-            barWidth: 1,
-            boxWidth: 1,
-            lineWidth: 2,
-            style: 'boxes'
-          },
-          interval: {
-            max: {
-              style: 'bars',
-              fillOpacity: 1,
-              color: '#777'
-            },
-            min: {
-              style: 'bars',
-              fillOpacity: 1,
-              color: '#777'
-            }
-          }
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
-    }
-    </script>
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 {% endblock %}
 {% block content %}
     <div class="visualisation">
@@ -197,4 +27,34 @@
             <p>{{ final_comparison }}</p>
         </div>
     </div>
+    <script type='text/javascript'>
+        var file_data = {{ file_result|safe }};
+        var file_data_flatten = [].concat.apply([], file_data);
+        var twitter_data = {{ twitter_result|safe }};
+        var twitter_data_unflatten = twitter_data[2];
+        var twitter_data_flatten = [];
+        for(var i=0;i<twitter_data_unflatten.length;i++){
+            twitter_data_flatten[i] = twitter_data_unflatten[i][1];
+        }
+        console.log(twitter_data_flatten);
+        var trace1 = {
+          x: twitter_data_flatten,
+          type: 'box',
+          name: 'Twitter Data'
+        };
+
+        var trace2 = {
+          x: file_data_flatten,
+          type: 'box',
+          name: 'Dataset Data'
+        };
+
+        var data = [trace1, trace2];
+
+        var layout = {
+          title: 'Dataset Data Compared to Twitter Data'
+        };
+
+        Plotly.newPlot('chart_div', data, layout);
+    </script>
 {% endblock %}
