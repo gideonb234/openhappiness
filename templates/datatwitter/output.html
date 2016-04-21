@@ -53,41 +53,37 @@
     google.charts.setOnLoadCallback(drawBoxPlot);
     function drawBoxPlot() {
         var file_data = {{ file_result|safe }};
-        console.log(file_data);
+        var file_data_flatten = [].concat.apply([], file_data);
         var twitter_data = {{ twitter_result|safe }};
         var twitter_data_indiv = twitter_data[2];
-        console.log(twitter_data_indiv);
-      var array = [
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'x');
+        var array = [
         ['Dataset'],
         ['Tweets Positive Data'],
       ];
-        for (var i =1; i<file_data.length;i++){
-            for (var j=0; j<file_data.length;j++){
-                array[0][j+1] = file_data[j][j];
-                console.log(array);
-            }
+        for (var i =0; i<file_data_flatten.length;i++){
+            array[0][i+1] = file_data_flatten[i];
+            data.addColumn('number', '0');
         }
-        for (var i =1; i<twitter_data_indiv.length;i++) {
+        for (var i =0; i<twitter_data_indiv.length;i++) {
             array[1][i+1] = twitter_data_indiv[i][1];
+            data.addColumn('number', '0');
         }
-        console.log(array);
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'x');
-      data.addColumn('number', 'series0');
-      data.addColumn('number', 'series1');
-      data.addColumn('number', 'series2');
-      data.addColumn('number', 'series3');
-      data.addColumn('number', 'series4');
-      data.addColumn('number', 'series5');
-      data.addColumn('number', 'series6');
+
+
+
 
       data.addColumn({id:'max', type:'number', role:'interval'});
       data.addColumn({id:'min', type:'number', role:'interval'});
       data.addColumn({id:'firstQuartile', type:'number', role:'interval'});
       data.addColumn({id:'median', type:'number', role:'interval'});
       data.addColumn({id:'thirdQuartile', type:'number', role:'interval'});
+        console.log(array);
+        array = getBoxPlotValues(array);
+      data.addRows(array);
 
-      data.addRows(getBoxPlotValues(array));
 
       /**
        * Takes an array of input data and returns an
@@ -113,7 +109,7 @@
           var thirdQuartile = getMedian(arr.slice(3));
 
           array[i][8] = max;
-          array[i][9] = min
+          array[i][9] = min;
           array[i][10] = firstQuartile;
           array[i][11] = median;
           array[i][12] = thirdQuartile;
