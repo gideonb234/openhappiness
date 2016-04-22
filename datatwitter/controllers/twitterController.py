@@ -25,8 +25,9 @@ class TwitterController():
             print(e.message[0]['code'])
         except(tweepy.TweepError) as e:
             print(e.message[0]['code'])
-        for result in results:
-            print(result.text + "\n")
+        # turn this off before deployment otherwise server encoding won't work properly
+        # for result in results:
+        #     print(result.text + "\n")
 
         return results
 
