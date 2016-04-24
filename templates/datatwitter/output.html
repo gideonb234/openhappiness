@@ -10,21 +10,20 @@
 
         </div>
         <div id="final_comparison">
-            {{ comparison_data_file }}
-            {{ comparison_data_twitter }}
             <p>
                 Dataset Results: </br>
-                Average: </br>
-                Median: </br>
-                Range: </br>
+                Average: {{ comparison_data_file.1 }} </br>
+                Median: {{ comparison_data_file.3 }} </br>
+                Range: {{ comparison_data_file.2 }} </br>
             </p>
             <p>
                 Twitter Query Data Summary: </br>
-                Average: </br>
-                Median: </br>
-                Range: </br>
+                Average: {{ comparison_data_twitter.1 }} </br>
+                Median: {{ comparison_data_twitter.3 }} </br>
+                Range: {{ comparison_data_twitter.2 }} </br>
             </p>
             <p>{{ final_comparison }}</p>
+            <p id="query_name" style="visibility: hidden">{{ comparison_data_twitter.4 }}</p>
         </div>
     </div>
     <script type='text/javascript'>
@@ -40,19 +39,22 @@
         var trace1 = {
           x: twitter_data_flatten,
           type: 'box',
-          name: 'Twitter Data'
+          name: 'From Twitter'
         };
 
         var trace2 = {
           x: file_data_flatten,
           type: 'box',
-          name: 'Dataset Data'
+          name: 'From Dataset'
         };
 
         var data = [trace1, trace2];
-
+        var query = document.getElementById('query_name').innerHTML;
+        console.log(query);
+        var chart_title = " Dataset vs Twitter Comparison of the Query: " + query;
+       // console.log(query);
         var layout = {
-          title: 'Dataset Data Compared to Twitter Data'
+          title: chart_title
         };
 
         Plotly.newPlot('chart_div', data, layout);

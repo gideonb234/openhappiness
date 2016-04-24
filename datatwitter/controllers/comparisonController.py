@@ -157,6 +157,6 @@ class ComparisonController:
         if dataset_sentiment == query_sentiment:
             final_string = "Final results show that both the dataset and twitter query are of " + result_dataset[0] + " sentiment."
         elif dataset_sentiment != query_sentiment:
-            final_string = "Final results show that the dataset is of " + result_dataset[0] + "sentiment and that the query is of " + \
-                            result_query[0] + "sentiment."
+            final_string = "Final results show that the dataset is of " + result_dataset[0] + " sentiment and that the query is of " + \
+                            result_query[0] + " sentiment."
         return final_string

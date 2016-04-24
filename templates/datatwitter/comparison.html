@@ -5,7 +5,7 @@
             <h2>How would you like to compare the data?</h2>
                 <p>Currently only Naive Bayes analysis is available</p>
 {#                <p>{{ query }} + {{ file }}</p>#}
-                <p>Once you click start this process can take up to 5 minutes</p>
+                <p style="text-decoration: underline">Once you click start this process can take 10 - 15 minutes</p>
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ comparsion_form.as_p }}
