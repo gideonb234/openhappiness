@@ -89,7 +89,7 @@ class SentimentController:
                 # anxiety.append(j_obj['column27'])
                 # anxiety.append(j_obj['column28'])
                 # result.append(anxiety)
-        print(result)
+        caprint(result)
         return result
 
     def fix_query_names(self, query):

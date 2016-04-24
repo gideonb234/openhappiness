@@ -7,11 +7,11 @@ class ComparisonController:
     def __init__(self):
         return
 
+    # Take the two results and compare the results to see which one is more positive/negative and generate average, range and median for each
+    # Then compare the sentiment to each other to see which if both are pos/neg or if they differ and where
+    # Lastly save each completed comparison to the database (result table)
     def compare_against_data(self,dataset_result,twitter_result,file_id):
         dataset_result = self.prep_data(dataset_result)
-        # Take the two results and compare the results to see which one is more positive/negative and generate average, range and median for each
-        # Then compare the sentiment to each other to see which if both are pos/neg or if they differ and where
-        # Lastly save each completed comparison to the database (result table)
         dataset_sentiment = self.dataset_calc_sentiment(dataset_result)
         dataset_completed_comparison = [dataset_sentiment, self.dataset_generate_average(dataset_result),
                                         self.dataset_generate_range(dataset_result), self.dataset_generate_median(dataset_result),
@@ -80,7 +80,7 @@ class ComparisonController:
         final_median = median([pos_median, neg_median])
         return final_median
 
-
+    # generate an average for the dataset result
     def dataset_generate_average(self, result):
         average_total = 0
         for r in result:
@@ -88,7 +88,7 @@ class ComparisonController:
         final_average = average_total / len(result)
         return final_average
 
-
+    # generate a range for the dataset result
     def dataset_generate_range(self, result):
         print(result)
         min_num = 0
@@ -101,7 +101,7 @@ class ComparisonController:
         final_range = [max_num, min_num]
         return final_range
 
-
+    # generate a median for the dataset result
     def dataset_generate_median(self, result):
         num_list = []
         for r in result:
@@ -111,14 +111,14 @@ class ComparisonController:
         final_median = median(num_list)
         return final_median
 
-
+    # calculate sentiment for the dataset result
     def dataset_calc_sentiment(self, result):
         neg = 0
         pos = 0
         for r in result:
-            if r[1] > 0.75:
+            if r[1] > 0.725:
                 pos += r[1]
-            elif r[1] < 0.75:
+            elif r[1] < 0.725:
                 neg += r[2]
         if neg > pos:
             return "Negative"
@@ -127,6 +127,7 @@ class ComparisonController:
         elif pos == neg:
             return "Literally 50/50"
 
+    # calculate twitter sentiment from the results given
     def twitter_calc_sentiment(self, result):
         neg = 0
         pos = 0
@@ -141,7 +142,7 @@ class ComparisonController:
             return "Literally 50/50"
 
 
-    # cast data to int and make them below 1
+    # cast data to int and make them below 1 to prep dataset data for comparison
     def prep_data(self, result):
         for r in result:
             r[0] = float(r[0])/10
@@ -150,6 +151,7 @@ class ComparisonController:
         return result
 
 
+    # generate a string based on the final comparison of the data
     def compare_final_comparisons(self, result_dataset, result_query):
         dataset_sentiment = result_dataset[0]
         query_sentiment = result_query[0]

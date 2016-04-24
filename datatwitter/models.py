@@ -14,7 +14,6 @@ class Tweets (models.Model):
 
 fs = FileSystemStorage(location='/datatwitter/files/')
 
-
 class Dataset(models.Model):
     def content_name(self, filename):
         return '/'.join(['datasets', self.file_title, filename])

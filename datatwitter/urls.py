@@ -1,4 +1,4 @@
-# Do the fancy url routing here
+# This does URL Routing and is used by django to create custom urls based on the views created
 
 from django.conf.urls import url
 from django.conf import settings

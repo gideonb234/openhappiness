@@ -1,4 +1,4 @@
-#Handle communication between JS library for Visualsation and the comparison controller
+#Handle communication between JS library for Visualisation and the view containing data from comparison controller
 
 class VisualisationController:
     def __init__(self):
@@ -8,7 +8,7 @@ class VisualisationController:
         return "e"
 
     def remove_strings_twitter(self,result):
-        # go through the array and remove strings from the array (use regex or clean??? idk)
+        # go through the array and remove strings from the array to make it clean for the visualisation
         cleaned_indivs = []
         for r in result[3]:
             cleaned_indivs.append([r[0],r[1],r[2]])
