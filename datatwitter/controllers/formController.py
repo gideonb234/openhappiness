@@ -60,3 +60,10 @@ class UploadFileForm(forms.Form):
 class ComparisonForm(forms.Form):
     file = forms.HiddenInput()
     query = forms.HiddenInput()
+# Allow user to select a visualisation
+class VisualisationForm(forms.Form):
+    choices = (
+        ("box", "Box Plot"),
+        ("scatter", "Scatter Graph"),
+    )
+    visualisation_choice = forms.ChoiceField(label="vis_choice", choices=choices)

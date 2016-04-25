@@ -3,7 +3,11 @@
 {% block content %}
     <div class="visualisation_select">
         <h2>Choose Visualisation</h2>
-        <p>Currently only a scatter chart visualisation is available, but more will be available in the future.</p>
-        <a href="/output" class="btn btn-lg">Next</a>
+        <form action="/output" method="post">
+            {% csrf_token %}
+            {{ vis_form }}
+            <input type="hidden" name="form-type" value="visualisation-select" />
+            <input type="submit" value="Submit" />
+        </form>
     </div>
 {% endblock %}

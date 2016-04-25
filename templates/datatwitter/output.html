@@ -24,6 +24,7 @@
             </p>
             <p>{{ final_comparison }}</p>
             <p id="query_name" style="visibility: hidden">{{ comparison_data_twitter.4 }}</p>
+            <p id="chart_type" style="visibility: hidden">box</p>
         </div>
     </div>
     <script type='text/javascript'>
@@ -35,18 +36,36 @@
         for(var i=0;i<twitter_data_unflatten.length;i++){
             twitter_data_flatten[i] = twitter_data_unflatten[i][1];
         }
-        console.log(twitter_data_flatten);
-        var trace1 = {
-          x: twitter_data_flatten,
-          type: 'box',
-          name: 'From Twitter'
-        };
+        var chart_type = document.getElementById('chart_type').innerHTML;
+        console.log(chart_type)
 
-        var trace2 = {
-          x: file_data_flatten,
-          type: 'box',
-          name: 'From Dataset'
-        };
+        if (chart_type == 'box') {
+            var trace1 = {
+              x: twitter_data_flatten,
+              type: 'box',
+              name: 'From Twitter'
+            };
+
+            var trace2 = {
+              x: file_data_flatten,
+              type: 'box',
+              name: 'From Dataset'
+            };
+        } else if (chart_type == 'scatter') {
+            var trace1 = {
+              x: twitter_data_flatten,
+              type: 'scatter',
+              mode: 'markers',
+              name: 'From Twitter'
+            };
+
+            var trace2 = {
+              x: file_data_flatten,
+              type: 'scatter',
+              mode: 'markers',
+              name: 'From Dataset'
+            };
+        }
 
         var data = [trace1, trace2];
         var query = document.getElementById('query_name').innerHTML;

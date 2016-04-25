@@ -49,6 +49,7 @@ class SentimentController:
             positivity += blob.sentiment.p_pos
             negativity += blob.sentiment.p_neg
             #   make a list so for each pass, it adds to a separate list I can use later
+            print(count);
             print(blob.sentiment)
         positivity = (positivity / count)
         negativity = (negativity / count)
@@ -89,7 +90,7 @@ class SentimentController:
                 # anxiety.append(j_obj['column27'])
                 # anxiety.append(j_obj['column28'])
                 # result.append(anxiety)
-        caprint(result)
+        print(result)
         return result
 
     def fix_query_names(self, query):
