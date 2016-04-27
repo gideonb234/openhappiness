@@ -73,7 +73,11 @@
         var chart_title = " Dataset vs Twitter Comparison of the Query: " + query;
        // console.log(query);
         var layout = {
-          title: chart_title
+          title: chart_title,
+          xaxis: {
+            title: 'Positivity from 0 - 1',
+            zeroline: false
+          }
         };
 
         Plotly.newPlot('chart_div', data, layout);
